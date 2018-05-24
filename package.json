@@ -1,0 +1,45 @@
+{
+  "name": "node-cypher-parser",
+  "version": "0.1.0",
+  "description": "A Node addon on top of libcypher-parser, to parse and lint cypher queries.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-pre-gyp install --fallback-to-build",
+    "prepublishOnly": "npm ls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Loupi/node-cypher-parser.git"
+  },
+  "keywords": [
+    "node",
+    "cypher",
+    "parser",
+    "graph",
+    "query",
+    "language"
+  ],
+  "author": "Louis-Pierre Beaumont",
+  "license": "Apache-2.0",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/Loupi/node-cypher-parser/issues"
+  },
+  "homepage": "https://github.com/Loupi/node-cypher-parser#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.245.1"
+  },
+  "dependencies": {
+    "nan": "^2.10.0",
+    "node-pre-gyp": "^0.10.0"
+  },
+  "bundledDependencies": [
+    "node-pre-gyp"
+  ],
+  "binary": {
+    "module_name": "cypher_parser",
+    "module_path": "./lib/binding/",
+    "host": "https://your_module.s3-us-west-1.amazonaws.com"
+  }
+}
