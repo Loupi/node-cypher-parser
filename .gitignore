@@ -1,6 +1,5 @@
 build/
 dist/
-lib/
 
 .vscode/*
 !.vscode/settings.json
