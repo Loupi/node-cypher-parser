@@ -1,0 +1,10 @@
+lib/
+build/
+.git/
+.vscode/
+.dockerignore
+.gitignore
+.npmignore
+Dockerfile
+tsconfig.json
+tslint.json

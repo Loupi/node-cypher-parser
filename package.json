@@ -2,12 +2,13 @@
   "name": "node-cypher-parser",
   "version": "0.1.0",
   "description": "A Node addon on top of libcypher-parser, to parse and lint cypher queries.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build-ts": "tsc",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "build": "npm run build-ts && npm run tslint",
-    "prepublishOnly": "npm ls"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -34,11 +35,13 @@
     "url": "https://github.com/Loupi/node-cypher-parser/issues"
   },
   "homepage": "https://github.com/Loupi/node-cypher-parser#readme",
-  "devDependencies": {
-    "@types/node": "^10.1.3"
-  },
   "dependencies": {
     "nan": "^2.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.1.3",
+    "tslint": "^5.8.0",
+    "typescript": "^2.8.3"
   },
   "config": {
     "unsafe-perm": true

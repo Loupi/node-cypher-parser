@@ -2,11 +2,12 @@
   "compilerOptions": {
       "module": "commonjs",
       "target": "es6",
+      "declaration": true,
       "noImplicitAny": true,
       "moduleResolution": "node",
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "types": ["reflect-metadata", "node"],
+      "types": ["node"],
       "lib": ["es6"],
       "sourceMap": true,
       "outDir": "dist",
@@ -21,6 +22,6 @@
         ]
   },
   "include": [
-      "src/**/*"
+      "lib/**/*"
   ]
 }
