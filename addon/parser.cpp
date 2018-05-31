@@ -1157,12 +1157,14 @@ void NodeBin::WalkNamedPath() const {
   AddMember("type", "named-path");
   Node("identifier", cypher_ast_named_path_get_identifier);
   Node("path", cypher_ast_named_path_get_path);
+  LoopNodes("elements", cypher_ast_pattern_path_nelements, cypher_ast_pattern_path_get_element);
 }
 
 void NodeBin::WalkShortestPath() const {
   AddMember("type", "shortest-path");
   AddMember("single", (bool)cypher_ast_shortest_path_is_single(node));
   Node("path", cypher_ast_shortest_path_get_path);
+  LoopNodes("elements", cypher_ast_pattern_path_nelements, cypher_ast_pattern_path_get_element);
 }
 
 void NodeBin::WalkPatternPath() const {
