@@ -617,8 +617,8 @@ void NodeBin::WalkCypherOption() const {
 
 void NodeBin::WalkCypherOptionParam() const {
   AddMember("type", "cypher-option-param");
-  AddMember("name", cypher_ast_cypher_option_param_get_name(node));
-  AddMember("value", cypher_ast_cypher_option_param_get_value(node));
+  Node("name", cypher_ast_cypher_option_param_get_name);
+  Node("value", cypher_ast_cypher_option_param_get_value(node));
 }
 
 void NodeBin::WalkExplainOption() const {
@@ -680,10 +680,10 @@ void NodeBin::WalkUsingPeriodicCommit() const {
 
 void NodeBin::WalkLoadCsv() const {
   AddMember("type", "load-csv");
-  AddMember("withHeaders", cypher_ast_load_csv_has_with_headers(node));
+  AddMember("withHeaders", (bool)cypher_ast_load_csv_has_with_headers(node));
   Node("url", cypher_ast_load_csv_get_url);
   Node("identifier", cypher_ast_load_csv_get_identifier);
-  AddMemberStr("fieldTerminator", cypher_ast_load_csv_get_field_terminator);
+  Node("fieldTerminator", cypher_ast_load_csv_get_field_terminator);
 }
 
 void NodeBin::WalkStart() const {
@@ -934,7 +934,7 @@ void NodeBin::WalkApplyAllOperator() const {
 void NodeBin::WalkPropertyOperator() const {
   AddMember("type", "property-operator");
   Node("expression", cypher_ast_property_operator_get_expression);
-  Node("prop_name", cypher_ast_property_operator_get_prop_name);
+  Node("propName", cypher_ast_property_operator_get_prop_name);
 }
 
 void NodeBin::WalkSubscriptOperator() const {
