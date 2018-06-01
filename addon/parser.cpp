@@ -83,6 +83,7 @@ bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, b
   bin.AddMember("eof", (bool)cypher_parse_result_eof(parseResult));
   bin.LoopNodes("roots", (node_counter)cypher_parse_result_nroots, (node_getter)cypher_parse_result_get_root);
   bin.LoopNodes("directives", (node_counter)cypher_parse_result_ndirectives, (node_getter)cypher_parse_result_get_directive);
+  bin.AddMember("nnodes", (int)cypher_parse_result_nnodes(parseResult));
   auto nErrors = bin.LoopErrors(parseResult);
   if (dumpAst)
     bin.PrintAst(parseResult, width, colorization);
