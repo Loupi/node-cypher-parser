@@ -1,5 +1,6 @@
 lib/
 build/
+docs/
 .git/
 .vscode/
 .dockerignore
