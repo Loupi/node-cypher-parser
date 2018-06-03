@@ -42,25 +42,27 @@ npm install --unsafe-perm cypher-parser
 * **Typscript**
 ```typescript
 import * as cypher from "cypher-parser";
-...
-const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
-              "WHERE node1.propertyA = {value}\n" +
-              "RETURNI node2.propertyA, node2.propertyB";
 
-try {
-	const result = await cypher.parse({
-		query: query,
-		dumpAst: true,
-		colorize: true
-	});
-	console.log(result.ast);
-} catch (e) {
-	const result: cypher.IParseResult = e;
-	for (const error of result.errors) {
-		console.log(error.position.line + ":" + error.position.column + ": " + error.message);
-		console.log(error.context);
-		console.log(" ".repeat(error.contextOffset) + "^");
+async function testCypher() {
+	const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
+		"WHERE node1.propertyA = {value}\n" +
+		"RETURNI node2.propertyA, node2.propertyB";
+
+	try {
+		const result = await cypher.parse({
+			query: query,
+			dumpAst: true,
+			colorize: true
+		});
 		console.log(result.ast);
+	} catch (e) {
+		const result: cypher.IParseResult = e;
+		for (const error of result.errors) {
+			console.log(error.position.line + ":" + error.position.column + ": " + error.message);
+			console.log(error.context);
+			console.log(" ".repeat(error.contextOffset) + "^");
+			console.log(result.ast);
+		}
 	}
 }
 ```
@@ -70,8 +72,9 @@ try {
 var cypher = require('cypher-parser');
 ...
 var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
-						"WHERE node1.propertyA = {value}\n" +
-						"RETURNI node2.propertyA, node2.propertyB";
+	"WHERE node1.propertyA = {value}\n" +
+	"RETURNI node2.propertyA, node2.propertyB";
+
 try {
 		var result = yield cypher.parse({
 				query: query,
