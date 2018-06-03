@@ -4,6 +4,7 @@ A cypher graph query language parser and linter addon for node on top of libcyph
 ## Features
 
 * Promise support
+* C++ addon parses queries in a worker thread
 * Typescript support with interfaces defined for full AST
 * Outputs json AST
 * Outputs text description of AST
