@@ -8,10 +8,10 @@
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")", 
-        "/usr/include"
+        "/usrlocal/include"
       ],
       "libraries": [
-        "/usr/lib/libcypher-parser.a", "-L/usr/lib"
+        "/usr/local/lib/libcypher-parser.a", "-L/usr/lib"
       ],
       'cflags!': [ '-fno-exceptions' ],
       'cflags_cc!': [ '-fno-exceptions' ],
