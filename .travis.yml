@@ -7,3 +7,4 @@ addons:
       - sourceline: ppa:cleishm/neo4j
     packages:
       - libcypher-parser
+      - libcypher-parser-dev
