@@ -70,27 +70,29 @@ async function testCypher() {
 * **Javascript**
 ```Javascript
 var cypher = require('cypher-parser');
-...
-var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
-	"WHERE node1.propertyA = {value}\n" +
-	"RETURNI node2.propertyA, node2.propertyB";
 
-try {
-		var result = yield cypher.parse({
-				query: query,
-				dumpAst: true,
-				colorize: true
-		});
-		console.log(result.ast);
-}
-catch (e) {
-		var result = e;
-		for (var i = 0; i < result.errors.length; i++) {
-				var error = result.errors[i];
-				console.log(error.position.line + ":" + error.position.column + ": " + error.message);
-				console.log(error.context);
-				console.log(" ".repeat(error.contextOffset) + "^");
-				console.log(result.ast);
-		}
+async function testCypher() {
+	var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
+		"WHERE node1.propertyA = {value}\n" +
+		"RETURNI node2.propertyA, node2.propertyB";
+
+	try {
+			var result = yield cypher.parse({
+					query: query,
+					dumpAst: true,
+					colorize: true
+			});
+			console.log(result.ast);
+	}
+	catch (e) {
+			var result = e;
+			for (var i = 0; i < result.errors.length; i++) {
+					var error = result.errors[i];
+					console.log(error.position.line + ":" + error.position.column + ": " + error.message);
+					console.log(error.context);
+					console.log(" ".repeat(error.contextOffset) + "^");
+					console.log(result.ast);
+			}
+	}
 }
 ```
