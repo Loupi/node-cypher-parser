@@ -1,5 +1,5 @@
 # cypher-parser
-A cypher graph query language parser and linter addon for node on top of libcypher-parser.
+A cypher graph query language parser/linter addon module for NodeJS.
 
 ## Features
 
