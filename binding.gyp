@@ -11,7 +11,7 @@
         "/usr/include"
       ],
       "libraries": [
-        "/usr/lib/libcypher-parser-0.6.0.a", "-L/usr/lib"
+        "/usr/lib/libcypher-parser.a", "-L/usr/lib"
       ],
       'cflags!': [ '-fno-exceptions' ],
       'cflags_cc!': [ '-fno-exceptions' ],
