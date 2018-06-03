@@ -16,7 +16,7 @@ addons:
 
 before_install:
   # install gcc on osx
-  - brew install gcc-6; CC=gcc-6;
+  - brew install gcc; CC=gcc-6;
   # get commit message
   - COMMIT_MESSAGE=$(git show -s --format=%B $TRAVIS_COMMIT | tr -d '\n')
   # put local node-pre-gyp on PATH
