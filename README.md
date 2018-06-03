@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Loupi/node-cypher-parser.png?branch=master)](https://travis-ci.org/Loupi/node-cypher-parser)
+[![Build Status](https://api.travis-ci.org/Loupi/node-cypher-parser.svg)](https://travis-ci.org/Loupi/node-cypher-parser)
 
 # cypher-parser
 A cypher graph query language parser/linter addon module for NodeJS.  
