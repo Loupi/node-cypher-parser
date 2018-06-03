@@ -14,23 +14,21 @@ It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and
 * [API Documentation](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
 
 ## Supported Systems
-
 - Node >= 8
 - linux-x64 (Any distro)
-- darwin-x64 (OsX)
+- darwin-x64 (OS X)
 
 Sorry Windows users, the libcypher-parser depencency cannot be built on your systems.  You can still run a docker container on Windows to use it.
 
 ## Installation
-The installation process will try to download a pre-compiled module binary matching your Node and OS version.  
-If it cannot be found, you will have to first run the steps in **Custom Build**.
-
 ```sh
 npm install cypher-parser
 ```
+The installation process will try to download a pre-built binary module matching your Node and OS version.  
+If it cannot be found, you will have to first run the steps in **Custom Build**.
 
 ## Custom Build
-In case a binary distribution is not available for your system, you must add build tools and compile the libcypher-parser dependency like this:
+In case a binary distribution is not available for your system, you must install build tools and compile the libcypher-parser dependency like this:
 
 * **make, C++ and Pyton**
 ```sh

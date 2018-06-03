@@ -1,4 +1,7 @@
-const cypher = require("../build/Release/cypher");
+const binary = require("node-pre-gyp");
+const path = require("path");
+const binding_path = binary.find(path.resolve(path.join(__dirname, "./package.json")));
+const cypher = require(binding_path);
 import * as ast from "./ast";
 
 export interface IParsePosition {
