@@ -47,7 +47,7 @@ import * as cypher from "cypher-parser";
 async function testCypher() {
   const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
     "WHERE node1.propertyA = {value}\n" +
-    "RETURNI node2.propertyA, node2.propertyB";
+    "RETURN node2.propertyA, node2.propertyB";
 
   try {
     const result = await cypher.parse({
@@ -75,7 +75,7 @@ var cypher = require('cypher-parser');
 async function testCypher() {
   var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
     "WHERE node1.propertyA = {value}\n" +
-    "RETURNI node2.propertyA, node2.propertyB";
+    "RETURN node2.propertyA, node2.propertyB";
 
   try {
     var result = await cypher.parse({
