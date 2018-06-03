@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Loupi/node-cypher-parser.png?branch=master)](https://travis-ci.org/Loupi/node-cypher-parser)
+
 # cypher-parser
 A cypher graph query language parser/linter addon module for NodeJS.  
 It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and [rapidjson](https://github.com/Tencent/rapidjson) under the hood.
