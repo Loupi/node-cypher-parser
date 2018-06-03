@@ -77,7 +77,7 @@ async function testCypher() {
     "RETURNI node2.propertyA, node2.propertyB";
 
   try {
-    var result = yield cypher.parse({
+    var result = await cypher.parse({
       query: query,
       dumpAst: true,
       colorize: true
