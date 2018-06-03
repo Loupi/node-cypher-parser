@@ -4,6 +4,6 @@ node_js:
 addons:
   apt:
     sources:
-      - ppa:cleishm/neo4j
+      - sourceline: ppa:cleishm/neo4j
     packages:
       - libcypher-parser
