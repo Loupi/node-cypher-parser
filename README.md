@@ -1,6 +1,16 @@
 # cypher-parser
 A cypher graph query language parser and linter addon for node on top of libcypher-parser.
 
+## Features
+
+* Promise support
+* Typescript support with interfaces defined for full AST
+* Outputs json AST
+* Outputs text description of AST
+* Outputs error with position and description
+* Optional ANSI color support for text and error output
+* [API Documentation](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
+
 ## Prerequisites
 Before installing **cypher-parser** you need to assure you have the following prerequisites:
 
@@ -29,8 +39,9 @@ npm install --unsafe-perm cypher-parser
 ```
 
 ## Usage
+* **Typscript**
 ```typescript
-import * as cypher from "node-cypher-parser";
+import * as cypher from "cypher-parser";
 ...
 const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
               "WHERE node1.propertyA = {value}\n" +
@@ -51,5 +62,32 @@ try {
 		console.log(" ".repeat(error.contextOffset) + "^");
 		console.log(result.ast);
 	}
+}
+```
+
+* **Javascript**
+```Javascript
+var cypher = require('cypher-parser');
+...
+var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
+						"WHERE node1.propertyA = {value}\n" +
+						"RETURNI node2.propertyA, node2.propertyB";
+try {
+		var result = yield cypher.parse({
+				query: query,
+				dumpAst: true,
+				colorize: true
+		});
+		console.log(result.ast);
+}
+catch (e) {
+		var result = e;
+		for (var i = 0; i < result.errors.length; i++) {
+				var error = result.errors[i];
+				console.log(error.position.line + ":" + error.position.column + ": " + error.message);
+				console.log(error.context);
+				console.log(" ".repeat(error.contextOffset) + "^");
+				console.log(result.ast);
+		}
 }
 ```
