@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - "10"
-before_install:
-  - chmod +x ./install-dependencies.sh
-  - ./install-dependencies.sh
+addons:
+  apt:
+    sources:
+      - ppa:cleishm/neo4j
+    packages:
+      - libcypher-parser
