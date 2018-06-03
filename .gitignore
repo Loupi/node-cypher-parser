@@ -1,5 +1,7 @@
 build/
 dist/
+example/dist/
+example/node_modules/
 
 .vscode/*
 !.vscode/settings.json

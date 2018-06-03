@@ -37,7 +37,7 @@ wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcyp
 
 ## Installation
 ```sh
-npm install --unsafe-perm cypher-parser
+npm install cypher-parser
 ```
 
 ## Usage
