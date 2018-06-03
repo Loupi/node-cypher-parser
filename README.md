@@ -1,5 +1,5 @@
 # cypher-parser
-A cypher graph query language parser/linter addon module for NodeJS.
+A cypher graph query language parser/linter addon module for NodeJS.  
 It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and [rapidjson](https://github.com/Tencent/rapidjson) under the hood.
 
 ## Features
@@ -54,7 +54,7 @@ async function testCypher() {
     const result = await cypher.parse({
       query: query,
       dumpAst: true,
-	    colorize: true
+      colorize: true
     });
     console.log(result.ast);
   } catch (e) {
