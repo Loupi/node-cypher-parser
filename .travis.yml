@@ -1,10 +1,7 @@
 language: node_js
+sudo: required,
 node_js:
   - "10"
-addons:
-  apt:
-    sources:
-      - sourceline: ppa:cleishm/neo4j
-    packages:
-      - libcypher-parser
-      - libcypher-parser-dev
+before_install:
+  - chmod +x ./install-dependencies.sh
+  - ./install-dependencies.sh
