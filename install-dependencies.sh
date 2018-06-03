@@ -1,3 +1,3 @@
-sudo add-apt-repository ppa:cleishm/neo4j
-sudo apt-get update
-sudo apt-get install libcypher-parser
+add-apt-repository ppa:cleishm/neo4j
+apt-get update
+apt-get install libcypher-parser
