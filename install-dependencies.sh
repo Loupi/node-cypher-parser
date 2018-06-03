@@ -1,9 +1,3 @@
-wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
-&& tar zxvpf libcypher-parser-0.6.0.tar.gz \
-&& rm libcypher-parser-0.6.0.tar.gz \
-&& cd libcypher-parser-0.6.0 \
-&& ./configure --prefix=/usr \
-&& make clean check \
-&& make install \
-&& cd .. \
-&& rm -rf libcypher-parser-0.6.0
+sudo add-apt-repository ppa:cleishm/neo4j
+sudo apt-get update
+sudo apt-get install libcypher-parser
