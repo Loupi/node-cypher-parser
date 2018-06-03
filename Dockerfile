@@ -8,7 +8,7 @@ RUN wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/li
 && tar zxvpf libcypher-parser-0.6.0.tar.gz \
 && rm libcypher-parser-0.6.0.tar.gz \
 && cd libcypher-parser-0.6.0 \
-&& ./configure --prefix=/usr \
+&& ./configure --prefix=/usr CFLAGS='-fPIC' \
 && make clean check \
 && make install \
 && cd .. \

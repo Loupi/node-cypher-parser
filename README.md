@@ -13,31 +13,41 @@ It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and
 * Optional ANSI color support for text and error output
 * [API Documentation](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
 
-## Prerequisites
-Before installing **cypher-parser** you need to assure you have the following prerequisites:
+## Supported Systems
+
+- Node >= 8
+- linux-x64 (Any distro)
+- darwin-x64 (OsX)
+
+Sorry Windows users, the libcypher-parser depencency cannot be built on your systems.  You can still run a docker container on Windows to use it.
+
+## Installation
+The installation process will try to download a pre-compiled module binary matching your Node and OS version.  
+If it cannot be found, you will have to first run the steps in **Custom Build**.
+
+```sh
+npm install cypher-parser
+```
+
+## Custom Build
+In case a binary distribution is not available for your system, you must add build tools and compile the libcypher-parser dependency like this:
 
 * **make, C++ and Pyton**
 ```sh
-apk add --no-cache make gcc g++ python
+sudo apk add make gcc g++ python
 ```
 
-* **libcypher-parser** see: [Installing libcypher-parser](https://github.com/cleishm/libcypher-parser/releases/tag/v0.6.0)  
-If v0.6.0 is not available for your system, you can install it using:
+* **libcypher-parser**
 ```sh
 wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
 && tar zxvpf libcypher-parser-0.6.0.tar.gz \
 && rm libcypher-parser-0.6.0.tar.gz \
 && cd libcypher-parser-0.6.0 \
-&& ./configure --prefix=/usr \
+&& ./configure --prefix=/usr CFLAGS='-fPIC' \
 && make clean check \
 && make install \
 && cd .. \
 && rm -rf libcypher-parser-0.6.0
-```
-
-## Installation
-```sh
-npm install cypher-parser
 ```
 
 ## Usage
