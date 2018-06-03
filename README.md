@@ -44,26 +44,26 @@ npm install --unsafe-perm cypher-parser
 import * as cypher from "cypher-parser";
 
 async function testCypher() {
-	const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
-		"WHERE node1.propertyA = {value}\n" +
-		"RETURNI node2.propertyA, node2.propertyB";
+  const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
+    "WHERE node1.propertyA = {value}\n" +
+    "RETURNI node2.propertyA, node2.propertyB";
 
-	try {
-		const result = await cypher.parse({
-			query: query,
-			dumpAst: true,
-			colorize: true
-		});
-		console.log(result.ast);
-	} catch (e) {
-		const result: cypher.IParseResult = e;
-		for (const error of result.errors) {
-			console.log(error.position.line + ":" + error.position.column + ": " + error.message);
-			console.log(error.context);
-			console.log(" ".repeat(error.contextOffset) + "^");
-			console.log(result.ast);
-		}
-	}
+  try {
+    const result = await cypher.parse({
+      query: query,
+      dumpAst: true,
+	  colorize: true
+    });
+    console.log(result.ast);
+  } catch (e) {
+    const result: cypher.IParseResult = e;
+    for (const error of result.errors) {
+      console.log(error.position.line + ":" + error.position.column + ": " + error.message);
+      console.log(error.context);
+      console.log(" ".repeat(error.contextOffset) + "^");
+      console.log(result.ast);
+    }
+  }
 }
 ```
 
@@ -72,27 +72,25 @@ async function testCypher() {
 var cypher = require('cypher-parser');
 
 async function testCypher() {
-	var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
-		"WHERE node1.propertyA = {value}\n" +
-		"RETURNI node2.propertyA, node2.propertyB";
+  var query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
+    "WHERE node1.propertyA = {value}\n" +
+    "RETURNI node2.propertyA, node2.propertyB";
 
-	try {
-			var result = yield cypher.parse({
-					query: query,
-					dumpAst: true,
-					colorize: true
-			});
-			console.log(result.ast);
-	}
-	catch (e) {
-			var result = e;
-			for (var i = 0; i < result.errors.length; i++) {
-					var error = result.errors[i];
-					console.log(error.position.line + ":" + error.position.column + ": " + error.message);
-					console.log(error.context);
-					console.log(" ".repeat(error.contextOffset) + "^");
-					console.log(result.ast);
-			}
-	}
+  try {
+    var result = yield cypher.parse({
+      query: query,
+      dumpAst: true,
+      colorize: true
+    });
+    console.log(result.ast);
+  } catch (e) {
+    for (var i = 0; i < e.errors.length; i++) {
+      var error = e.errors[i];
+      console.log(error.position.line + ":" + error.position.column + ": " + error.message);
+      console.log(error.context);
+      console.log(" ".repeat(error.contextOffset) + "^");
+      console.log(e.ast);
+    }
+  }
 }
 ```
