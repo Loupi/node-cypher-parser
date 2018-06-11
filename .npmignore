@@ -7,6 +7,7 @@ example/
 .dockerignore
 .gitignore
 .npmignore
+.travis.yml
 Dockerfile
 tsconfig.json
 tslint.json
