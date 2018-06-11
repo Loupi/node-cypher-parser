@@ -55,6 +55,6 @@
   "binary": {
     "module_name": "cypher",
     "module_path" : "./dist/release/",
-    "host": "https://cypher-parser.s3-us-west-1.amazonaws.com/"
+    "host": "https://cypher-parser.s3.amazonaws.com/"
   }
 }
