@@ -14,7 +14,7 @@
       "libraries": [
         "/usr/local/lib/libcypher-parser.a", "-L/usr/lib"
       ],
-      'cflags!': [ '-fno-exceptions' ],
+      "cflags!": [ "-fno-exceptions" ],
       'cflags_cc!': [ '-fno-exceptions' ],
       "conditions": [
         ["OS=='linux' or OS=='freebsd' or OS=='openbsd' or OS=='solaris'", {
