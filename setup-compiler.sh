@@ -1,3 +1,9 @@
+if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+export CFLAGS="-mmacosx-version-min=10.7";
+export CXXFLAGS="-mmacosx-version-min=10.7";
+export LDFLAGS="-mmacosx-version-min=10.7";
+fi
+
 if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
 # Link gcc-6 and g++-6 to their standard commands
 sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc;
