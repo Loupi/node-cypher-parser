@@ -17,7 +17,7 @@
       'cflags!': [ '-fno-exceptions' ],
       'cflags_cc!': [ '-fno-exceptions' ],
       "conditions": [
-        ["OS== 'linux' or OS=='freebsd' or OS=='openbsd' or OS=='solaris', {
+        ["OS=='linux' or OS=='freebsd' or OS=='openbsd' or OS=='solaris'", {
             "cflags": ["-Wall", "-Wextra", "-pedantic"],
             "cflags_cc": ["-std=c++14"],
             'cflags_cc!': [ '-fno-rtti' ]
