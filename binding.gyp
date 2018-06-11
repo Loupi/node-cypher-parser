@@ -4,7 +4,8 @@
       "target_name": "cypher",
       "sources": [
         "addon/binding.cpp",
-        "addon/parser.cpp"
+        "addon/parser.cpp",
+        "addon/memstream/memstream.c"
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")", 
