@@ -36,6 +36,10 @@ before_install:
   - chmod +x ./install-dependencies.sh
   - ./install-dependencies.sh
 
+install:
+- npm ci
+- npm test
+
 before_script:
 # if publishing, do it
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package publish; fi;
