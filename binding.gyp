@@ -42,7 +42,8 @@
             'WARNING_CFLAGS': [
               '-Wall',
               '-Wendif-labels',
-              '-W'
+              '-W',
+              '-Wno-unused-parameter'
             ],
           }
         }]
