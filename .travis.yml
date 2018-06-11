@@ -20,8 +20,6 @@ sudo: required,
 node_js:
   - "10"
 before_install:
-  - chmod +x ./relink-compiler.sh
-  - ./relink-compiler.sh
   # get commit message
   - COMMIT_MESSAGE=$(git show -s --format=%B $TRAVIS_COMMIT | tr -d '\n')
   # put local node-pre-gyp on PATH

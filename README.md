@@ -16,9 +16,9 @@ It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and
 * [API Documentation](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
 
 ## Supported Systems
-- Node >= 8
-- linux-x64 (Any distro)
-- darwin-x64 (OS X)
+- Node 6.x, 8.x, 9.x, 10.x
+- linux-x64
+- darwin-x64 (OSX >= 10.7)
 
 Sorry Windows users, the libcypher-parser depencency cannot be built on your systems.  You can still run a docker container on Windows to use it.
 
