@@ -48,6 +48,7 @@ before_script:
 - node-gyp clean
 
 script:
+- npm install codecov -g
 # if publishing, test installing from remote
 - INSTALL_RESULT=0
 - if [[ $PUBLISH_BINARY == true ]]; then INSTALL_RESULT=$(npm install --fallback-to-build=false > /dev/null)$? || true; fi;
@@ -59,3 +60,4 @@ script:
 after_success:
 # if success then query and display all published binaries
 - node-pre-gyp info
+- codecov
