@@ -1,11 +1,15 @@
-#if defined(__linux__)
-# include <features.h>
+#ifndef OPEN_MEMSTREAM_H_
+#define OPEN_MEMSTREAM_H_
+
+#ifdef __cplusplus
+extern "C"
+{
 #endif
 
-#include <stdio.h>
+FILE *open_memstream(char **cp, size_t *lenp);
 
-// #ifdef CUSTOM_MEMSTREAM
+#ifdef __cplusplus
+}
+#endif
 
-FILE *open_memstream(char **ptr, size_t *sizeloc);
-
-// #endif /* CUSTOM_MEMSTREAM */
+#endif // #ifndef FMEMOPEN_H_
