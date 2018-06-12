@@ -4,8 +4,8 @@
 
 #include <stdio.h>
 
-#if _POSIX_C_SOURCE < 200809L
+#ifdef CUSTOM_MEMSTREAM
 
 FILE *open_memstream(char **ptr, size_t *sizeloc);
 
-#endif /* _POSIX_C_SOURCE < 200809L */
+#endif /* CUSTOM_MEMSTREAM */

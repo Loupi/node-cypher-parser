@@ -23,6 +23,9 @@
             'cflags_cc!': [ '-fno-rtti' ]
         }],
         ['OS=="mac"', {
+          'defines': [
+            'CUSTOM_MEMSTREAM=1',
+          ],
           'xcode_settings': {
             'ALWAYS_SEARCH_USER_PATHS': 'NO',
             'GCC_CW_ASM_SYNTAX': 'NO',                # No -fasm-blocks

@@ -8,7 +8,9 @@ const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
 
 describe("parse query", () => {
   it("should return a valid parse result", async () => {
-    const result = await cypher.parse({query, dumpAst: true});
+    const promise = cypher.parse({query, dumpAst: true});
+    const result = await promise;
+    expect(promise).to.be.a("promise");
     expect(result).to.be.an("object");
     expect(result).to.have.property("ast");
     expect(result.ast).to.be.a("string");
