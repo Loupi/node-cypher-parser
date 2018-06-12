@@ -4,8 +4,8 @@
 
 #include <stdio.h>
 
-#ifdef CUSTOM_MEMSTREAM
+// #ifdef CUSTOM_MEMSTREAM
 
 FILE *open_memstream(char **ptr, size_t *sizeloc);
 
-#endif /* CUSTOM_MEMSTREAM */
+// #endif /* CUSTOM_MEMSTREAM */

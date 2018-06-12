@@ -46,7 +46,7 @@
 
 #include "memstream.h"
 
-#ifdef CUSTOM_MEMSTREAM
+// #ifdef CUSTOM_MEMSTREAM
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -174,4 +174,4 @@ FILE *open_memstream(char **ptr, size_t *sizeloc)
     return 0;
 }
 
-#endif /* CUSTOM_MEMSTREAM */
+// #endif /* CUSTOM_MEMSTREAM */
