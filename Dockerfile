@@ -2,12 +2,13 @@ FROM mhart/alpine-node:10
 
 WORKDIR /app
 
-RUN apk add --no-cache make gcc g++ python \
-&& wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
+RUN apk add --no-cache make gcc g++ python
+
+RUN wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
 && tar zxvpf libcypher-parser-0.6.0.tar.gz \
 && rm libcypher-parser-0.6.0.tar.gz \
 && cd libcypher-parser-0.6.0 \
-&& ./configure --prefix=/usr \
+&& ./configure --prefix=/usr/local CFLAGS='-fPIC' \
 && make clean check \
 && make install \
 && cd .. \
@@ -20,5 +21,4 @@ RUN npm install --unsafe-perm --production
 
 COPY . .
 
-EXPOSE 3000
 CMD ["sleep", "600"]

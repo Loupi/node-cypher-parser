@@ -1,4 +1,9 @@
 .git
 .vscode
+.travis.yml
+install-dependencies.sh
+DockerFile
+docs/
+example/
 node_modules
 npm-debug

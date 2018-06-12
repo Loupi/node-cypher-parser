@@ -1,0 +1,23 @@
+{
+  "name": "cypher-example",
+  "version": "1.0.0",
+  "description": "cypher parser example",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build-ts": "tsc",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "build": "npm run build-ts && npm run tslint"
+  },
+  "dependencies": {
+    "cypher-parser": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.1.3",
+    "tslint": "^5.8.0",
+    "typedoc": "^0.11.1",
+    "typescript": "^2.8.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

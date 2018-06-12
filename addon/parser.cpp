@@ -3,6 +3,7 @@
 #include <exception>
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
+#include "memstream/memstream.h"
 
 const std::string GetJsonText(const rapidjson::Value& doc)
 {

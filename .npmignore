@@ -1,10 +1,15 @@
-lib/
+src/
 build/
+docs/
+example/
+test/
 .git/
 .vscode/
 .dockerignore
 .gitignore
 .npmignore
+.travis.yml
 Dockerfile
 tsconfig.json
 tslint.json
+install-dependencies.sh
