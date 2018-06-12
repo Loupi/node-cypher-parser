@@ -36,6 +36,10 @@ before_install:
   - chmod +x ./install-dependencies.sh
   - ./install-dependencies.sh
 
+install:
+- npm ci
+- npm test
+
 before_script:
 # if publishing, do it
 - if [[ $PUBLISH_BINARY == true ]]; then node-pre-gyp package publish; fi;
@@ -44,6 +48,7 @@ before_script:
 - node-gyp clean
 
 script:
+- npm install codecov -g
 # if publishing, test installing from remote
 - INSTALL_RESULT=0
 - if [[ $PUBLISH_BINARY == true ]]; then INSTALL_RESULT=$(npm install --fallback-to-build=false > /dev/null)$? || true; fi;
@@ -55,3 +60,4 @@ script:
 after_success:
 # if success then query and display all published binaries
 - node-pre-gyp info
+- codecov
