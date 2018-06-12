@@ -13,5 +13,5 @@ FILE *open_memstream(char **cp, size_t *lenp);
 }
 #endif
 
-#endif // #ifndef FMEMOPEN_H_
-#endif // CUSTOM_MEMSTREAM
+#endif /* #ifndef FMEMOPEN_H_ */
+#endif /* #ifdef CUSTOM_MEMSTREAM */

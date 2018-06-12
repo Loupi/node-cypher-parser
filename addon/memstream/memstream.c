@@ -131,4 +131,4 @@ open_memstream(char **cp, size_t *lenp)
 	return (fp);
 }
 
-#endif //CUSTOM_MEMSTREAM
+#endif /* #ifdef CUSTOM_MEMSTREAM */
