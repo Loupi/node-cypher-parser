@@ -1,5 +1,7 @@
 /* Use funopen(3) to provide open_memstream(3) like functionality. */
 
+#ifdef CUSTOM_MEMSTREAM
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -128,3 +130,5 @@ open_memstream(char **cp, size_t *lenp)
 	}
 	return (fp);
 }
+
+#endif //CUSTOM_MEMSTREAM

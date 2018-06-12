@@ -1,3 +1,4 @@
+#ifdef CUSTOM_MEMSTREAM
 #ifndef OPEN_MEMSTREAM_H_
 #define OPEN_MEMSTREAM_H_
 
@@ -13,3 +14,4 @@ FILE *open_memstream(char **cp, size_t *lenp);
 #endif
 
 #endif // #ifndef FMEMOPEN_H_
+#endif // CUSTOM_MEMSTREAM
