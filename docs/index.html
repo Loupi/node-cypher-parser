@@ -64,6 +64,7 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
+				<p><a href="https://travis-ci.com/Loupi/node-cypher-parser"><img src="https://api.travis-ci.com/Loupi/node-cypher-parser.svg" alt="Build Status"></a></p>
 				<h1 id="cypher-parser">cypher-parser</h1>
 				<p>A cypher graph query language parser/linter addon module for NodeJS.<br>It relies on <a href="https://github.com/cleishm/libcypher-parser">libcypher-parser</a> and <a href="https://github.com/Tencent/rapidjson">rapidjson</a> under the hood.</p>
 				<h2 id="features">Features</h2>
@@ -77,19 +78,30 @@
 					<li>Optional ANSI color support for text and error output</li>
 					<li><a href="https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html">API Documentation</a></li>
 				</ul>
-				<h2 id="prerequisites">Prerequisites</h2>
-				<p>Before installing <strong>cypher-parser</strong> you need to assure you have the following prerequisites:</p>
+				<h2 id="supported-systems">Supported Systems</h2>
+				<ul>
+					<li>Node 6.x, 8.x, 9.x, 10.x</li>
+					<li>linux-x64</li>
+					<li>darwin-x64 (OSX &gt;= 10.7)</li>
+				</ul>
+				<p>Sorry Windows users, the libcypher-parser depencency cannot be built on your systems.  You can still run a docker container on Windows to use it.</p>
+				<h2 id="installation">Installation</h2>
+				<pre><code class="lang-sh">npm install cypher-parser
+</code></pre>
+				<p>The installation process will try to download a pre-built binary module matching your Node and OS version.<br>If it cannot be found, you will have to first run the steps in <strong>Custom Build</strong>.</p>
+				<h2 id="custom-build">Custom Build</h2>
+				<p>In case a binary distribution is not available for your system, you must install build tools and compile the libcypher-parser dependency like this:</p>
 				<ul>
 					<li><p><strong>make, C++ and Pyton</strong></p>
-						<pre><code class="lang-sh">apk add --no-cache make gcc g++ python
+						<pre><code class="lang-sh">sudo apk add make gcc g++ python
 </code></pre>
 					</li>
-					<li><p><strong>libcypher-parser</strong> see: <a href="https://github.com/cleishm/libcypher-parser/releases/tag/v0.6.0">Installing libcypher-parser</a><br>If v0.6.0 is not available for your system, you can install it using:</p>
+					<li><p><strong>libcypher-parser</strong></p>
 						<pre><code class="lang-sh">wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
 &amp;&amp; tar zxvpf libcypher-parser-0.6.0.tar.gz \
 &amp;&amp; rm libcypher-parser-0.6.0.tar.gz \
 &amp;&amp; <span class="hljs-built_in">cd</span> libcypher-parser-0.6.0 \
-&amp;&amp; ./configure --prefix=/usr \
+&amp;&amp; ./configure --prefix=/usr/<span class="hljs-built_in">local</span> CFLAGS=<span class="hljs-string">'-fPIC'</span> \
 &amp;&amp; make clean check \
 &amp;&amp; make install \
 &amp;&amp; <span class="hljs-built_in">cd</span> .. \
@@ -97,9 +109,6 @@
 </code></pre>
 					</li>
 				</ul>
-				<h2 id="installation">Installation</h2>
-				<pre><code class="lang-sh">npm install cypher-parser
-</code></pre>
 				<h2 id="usage">Usage</h2>
 				<ul>
 					<li><strong>Typscript</strong>
