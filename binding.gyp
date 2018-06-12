@@ -9,7 +9,7 @@
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")", 
-        "/usrlocal/include"
+        "/usr/local/include"
       ],
       "libraries": [
         "/usr/local/lib/libcypher-parser.a", "-L/usr/lib"

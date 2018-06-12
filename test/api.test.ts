@@ -1,6 +1,6 @@
 import "mocha";
 import { expect } from "chai";
-import * as cypher from "../lib/index";
+import * as cypher from "../src/index";
 
 const query = "MATCH (node1:Label1)-->(node2:Label2)\n" +
               "WHERE node1.propertyA = {value}\n" +
