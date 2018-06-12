@@ -12,7 +12,9 @@
     "typedoc": "typedoc --mode modules -module commonjs --out docs src/",
     "install": "node-pre-gyp install --fallback-to-build",
     "prepublishOnly": "npm ls",
-    "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register ./test/*.ts"
+    "pretest": "tsc -p .",
+    "test": "nyc mocha",
+    "posttest": "nyc report --reporter=json && codecov -f coverage/*.json"
   },
   "repository": {
     "type": "git",
@@ -48,7 +50,9 @@
     "@types/node": "^10.3.2",
     "aws-sdk": "^2.255.1",
     "chai": "^4.1.2",
+    "codecov": "^3.0.2",
     "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
     "ts-node": "^6.1.0",
     "tslint": "^5.8.0",
     "typedoc": "^0.11.1",
