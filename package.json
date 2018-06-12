@@ -72,7 +72,6 @@
   },
   "nyc": {
     "include": [
-      "test/**/*.ts",
       "src/**/*.ts"
     ],
     "extension": [
