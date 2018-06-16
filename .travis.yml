@@ -98,7 +98,7 @@ before_install:
 
 install:
 - rm -rf node_modules
-- npm cache clean
+- rm package-lock.json
 - npm install
 - npm run build
 - npm test
