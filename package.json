@@ -8,7 +8,6 @@
     "build-ts": "tsc",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "build": "npm run build-ts && npm run tslint",
-    "prepublish": "npm run build",
     "typedoc": "typedoc --mode modules -module commonjs --out docs src/",
     "install": "node-pre-gyp install --fallback-to-build",
     "prepublishOnly": "npm ls",
