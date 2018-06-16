@@ -140,7 +140,7 @@ void NodeBin::AddMemberInt(const char* key, const cypher_astnode_t* intNode) con
   }
 
   try {
-    auto i = std::stoi(strVal);
+    auto i = atoi(strVal);
     AddMember(key, i);
   }
   catch (const std::exception& e) {
@@ -166,7 +166,7 @@ void NodeBin::AddMemberFloat(const char* key, const cypher_astnode_t* floatNode)
   }
 
   try {
-    auto ld = std::stod(strVal);
+    auto ld = strtod(strVal, null);
     rapidjson::Value value;
     value.SetDouble(ld);
     AddMember(key, value);
