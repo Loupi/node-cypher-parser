@@ -15,6 +15,32 @@ matrix:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
     - os: linux
       node_js:
+        - "9"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=9"
+    - os: linux
+      node_js:
+        - "9"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=9"
+    - os: linux
+      node_js:
         - "6"
       addons:
         apt:
@@ -32,6 +58,18 @@ matrix:
         - "10"
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=10"
+    - os: osx
+      osx_image: xcode8
+      node_js:
+        - "9"
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=9"
+    - os: osx
+      osx_image: xcode8
+      node_js:
+        - "8"
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=8"
     - os: osx
       osx_image: xcode8
       node_js:
