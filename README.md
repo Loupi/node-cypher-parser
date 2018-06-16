@@ -2,7 +2,7 @@
 [![Build Status](https://api.travis-ci.com/Loupi/node-cypher-parser.svg)](https://travis-ci.com/Loupi/node-cypher-parser)
 ![macOS](https://img.shields.io/badge/os-macOS-green.svg?style=flat)
 ![Linux](https://img.shields.io/badge/os-linux-green.svg?style=flat)
-![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-next.svg?v=101)]
+![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-next.svg?v=101)
 [![codecov](https://codecov.io/gh/Loupi/node-cypher-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Loupi/node-cypher-parser)
 [![codebeat badge](https://codebeat.co/badges/f4125e60-0caf-423d-8848-4d3bb180eb33)](https://codebeat.co/projects/github-com-loupi-node-cypher-parser-master)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
