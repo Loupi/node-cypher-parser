@@ -97,6 +97,7 @@ before_install:
 
 install:
 - npm install
+- npm run build
 - npm test
 
 before_script:
