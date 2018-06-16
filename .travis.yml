@@ -123,8 +123,8 @@ after_success:
 
 deploy:
   provider: npm
-  email: "YOUR_EMAIL_ADDRESS"
-  api_key: "YOUR_AUTH_TOKEN"
+  email: $NPM_EMAIL
+  api_key: $NPM_TOKEN
   on:
-    branch: master
+    branch: develop
     condition: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
