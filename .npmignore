@@ -1,3 +1,4 @@
+addon/
 src/
 build/
 docs/
@@ -6,6 +7,7 @@ test/
 .git/
 .vscode/
 .dockerignore
+.codebeatignore
 .gitignore
 .npmignore
 .travis.yml

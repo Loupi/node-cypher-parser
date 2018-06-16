@@ -120,3 +120,11 @@ after_success:
 # if success then query and display all published binaries
 - node-pre-gyp info
 - codecov
+
+deploy:
+  provider: npm
+  email: "YOUR_EMAIL_ADDRESS"
+  api_key: "YOUR_AUTH_TOKEN"
+  on:
+    branch: master
+    condition: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
