@@ -58,7 +58,7 @@ before_install:
   - ./install-dependencies.sh
 
 install:
-- npm ci
+- npm install
 - npm test
 
 before_script:
