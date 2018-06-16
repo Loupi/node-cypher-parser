@@ -28,7 +28,7 @@ matrix:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=9"
     - os: linux
       node_js:
-        - "9"
+        - "8"
       addons:
         apt:
           sources:
@@ -38,7 +38,7 @@ matrix:
             - g++-6
             - cmake
       env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=9"
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=8"
     - os: linux
       node_js:
         - "6"
