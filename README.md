@@ -1,15 +1,9 @@
 [![Docs](https://img.shields.io/badge/docs-cypher--parser-1FBCE4.svg)](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
-
 [![Build Status](https://api.travis-ci.com/Loupi/node-cypher-parser.svg)](https://travis-ci.com/Loupi/node-cypher-parser)
-
 ![macOS](https://img.shields.io/badge/os-macOS-green.svg?style=flat)
-
 ![Linux](https://img.shields.io/badge/os-linux-green.svg?style=flat)
-
 [![codecov](https://codecov.io/gh/Loupi/node-cypher-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Loupi/node-cypher-parser)
-
 [![codebeat](https://codebeat.co/badges/b9441fbf-77dc-4159-8cf5-0442ba7ac3ba)](https://codebeat.co/projects/github-com-loupi-node-cypher-parser-master)
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # cypher-parser
