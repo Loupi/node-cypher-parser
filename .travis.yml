@@ -26,6 +26,7 @@ matrix:
             - cmake
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=9"
+        - DEPLOYJS=1
     - os: linux
       node_js:
         - "8"
@@ -96,6 +97,7 @@ before_install:
   - ./install-dependencies.sh
 
 install:
+- rm ./package-lock.json
 - npm install
 - npm run build
 - npm test
@@ -128,4 +130,4 @@ deploy:
   api_key: $NPM_TOKEN
   on:
     branch: develop
-    condition: $MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
+    condition: $DEPLOYJS = 1
