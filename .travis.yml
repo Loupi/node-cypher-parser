@@ -128,4 +128,4 @@ deploy:
   api_key: $NPM_TOKEN
   on:
     branch: develop
-    condition: env(MATRIX_EVAL)="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
+    condition: $MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
