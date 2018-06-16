@@ -166,7 +166,7 @@ void NodeBin::AddMemberFloat(const char* key, const cypher_astnode_t* floatNode)
   }
 
   try {
-    auto ld = strtod(strVal, null);
+    auto ld = strtod(strVal, NULL);
     rapidjson::Value value;
     value.SetDouble(ld);
     AddMember(key, value);
