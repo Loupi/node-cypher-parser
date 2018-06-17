@@ -1,6 +1,8 @@
 matrix:
   include:
     - os: linux
+      node_js:
+        - "10"
       addons:
         apt:
           sources:
@@ -10,15 +12,80 @@ matrix:
             - g++-6
             - cmake
       env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-    - os: osx
-      osx_image: xcode8
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
+        - DEPLOYJS=1
+    - os: linux
+      if: branch = master
+      node_js:
+        - "9"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
       env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=9"
+    - os: linux
+      if: branch = master
+      node_js:
+        - "8"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=8"
+    - os: linux
+      if: branch = master
+      node_js:
+        - "6"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=6"
+    - os: osx
+      if: branch = master
+      osx_image: xcode8
+      node_js:
+        - "10"
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=10"
+    - os: osx
+      if: branch = master
+      osx_image: xcode8
+      node_js:
+        - "9"
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=9"
+    - os: osx
+      if: branch = master
+      osx_image: xcode8
+      node_js:
+        - "8"
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=8"
+    - os: osx
+      if: branch = master
+      osx_image: xcode8
+      node_js:
+        - "6"
+      env:
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=6"
 language: node_js
-sudo: required,
-node_js:
-  - "10"
+sudo: required
 before_install:
   # get commit message
   - COMMIT_MESSAGE=$(git show -s --format=%B $TRAVIS_COMMIT | tr -d '\n')
@@ -37,7 +104,8 @@ before_install:
   - ./install-dependencies.sh
 
 install:
-- npm ci
+- npm install
+- npm run build
 - npm test
 
 before_script:
@@ -61,3 +129,12 @@ after_success:
 # if success then query and display all published binaries
 - node-pre-gyp info
 - codecov
+
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
+    condition: $DEPLOYJS = 1

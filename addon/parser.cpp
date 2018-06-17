@@ -7,7 +7,7 @@
 
 const std::string GetJsonText(const rapidjson::Value& doc)
 {
-  auto buffer = rapidjson::StringBuffer();
+  rapidjson::StringBuffer buffer;
   buffer.Clear();
 
   rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -77,8 +77,8 @@ bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, b
     return false;
   }
 
-  auto document = rapidjson::Document(rapidjson::kObjectType);
-  auto result = rapidjson::Value(rapidjson::kObjectType);
+  rapidjson::Document document(rapidjson::kObjectType);
+  rapidjson::Value result(rapidjson::kObjectType);
   auto bin = NodeBin((const cypher_astnode_t*)parseResult, result, document.GetAllocator());
 
   bin.AddMember("eof", (bool)cypher_parse_result_eof(parseResult));
@@ -140,7 +140,7 @@ void NodeBin::AddMemberInt(const char* key, const cypher_astnode_t* intNode) con
   }
 
   try {
-    auto i = std::stoi(strVal);
+    auto i = atoi(strVal);
     AddMember(key, i);
   }
   catch (const std::exception& e) {
@@ -166,7 +166,7 @@ void NodeBin::AddMemberFloat(const char* key, const cypher_astnode_t* floatNode)
   }
 
   try {
-    auto ld = std::stod(strVal);
+    auto ld = strtod(strVal, NULL);
     rapidjson::Value value;
     value.SetDouble(ld);
     AddMember(key, value);

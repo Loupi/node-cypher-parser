@@ -132,3 +132,5 @@ open_memstream(char **cp, size_t *lenp)
 }
 
 #endif /* #ifdef CUSTOM_MEMSTREAM */
+
+typedef int make_iso_compilers_happy;

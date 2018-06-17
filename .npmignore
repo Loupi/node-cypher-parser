@@ -1,11 +1,15 @@
+addon/
 src/
 build/
+coverage/
 docs/
 example/
 test/
 .git/
+.nyc_output/
 .vscode/
 .dockerignore
+.codebeatignore
 .gitignore
 .npmignore
 .travis.yml
