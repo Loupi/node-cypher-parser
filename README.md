@@ -5,7 +5,8 @@
 [![codecov](https://codecov.io/gh/Loupi/node-cypher-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Loupi/node-cypher-parser)
 [![codebeat badge](https://codebeat.co/badges/f4125e60-0caf-423d-8848-4d3bb180eb33)](https://codebeat.co/projects/github-com-loupi-node-cypher-parser-master)
 [![Docs](https://img.shields.io/badge/docs-typedoc-1FBCE4.svg)](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
+[![NPM](https://nodei.co/npm/cypher-parser.png)](https://npmjs.org/package/cypher-parser)
 
 # cypher-parser
 A cypher graph query language parser/linter addon module for NodeJS.  
