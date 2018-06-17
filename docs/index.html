@@ -96,26 +96,6 @@
 				<pre><code class="lang-sh">npm install cypher-parser
 </code></pre>
 				<p>The installation process will try to download a pre-built binary module matching your Node and OS version.<br>If it cannot be found, you will have to first run the steps in <strong>Custom Build</strong>.</p>
-				<h2 id="custom-build">Custom Build</h2>
-				<p>In case a binary distribution is not available for your system, you must install build tools and compile the libcypher-parser dependency like this:</p>
-				<ul>
-					<li><p><strong>make, C++ and Pyton</strong></p>
-						<pre><code class="lang-sh">sudo apk add make gcc g++ python
-</code></pre>
-					</li>
-					<li><p><strong>libcypher-parser</strong></p>
-						<pre><code class="lang-sh">wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
-&amp;&amp; tar zxvpf libcypher-parser-0.6.0.tar.gz \
-&amp;&amp; rm libcypher-parser-0.6.0.tar.gz \
-&amp;&amp; <span class="hljs-built_in">cd</span> libcypher-parser-0.6.0 \
-&amp;&amp; ./configure --prefix=/usr/<span class="hljs-built_in">local</span> CFLAGS=<span class="hljs-string">'-fPIC'</span> \
-&amp;&amp; make clean check \
-&amp;&amp; make install \
-&amp;&amp; <span class="hljs-built_in">cd</span> .. \
-&amp;&amp; rm -rf libcypher-parser-0.6.0
-</code></pre>
-					</li>
-				</ul>
 				<h2 id="usage">Usage</h2>
 				<p>The cypher-parser module has only one exported function: parse.<br>It takes a query string or a ParseParameters object as input, and returns a promise as output.<br>On success, the promise returns a ParseResult object or a string.<br>On failure, a CypherParserError object is thrown. It contains a ParseResult object for more details.  </p>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ParseParameters {
@@ -187,7 +167,26 @@ async function testCypher() {
     }
   }
 }
+</code></pre><h2 id="custom-build">Custom Build</h2>
+				<p>In case a binary distribution is not available for your system, you must install build tools and compile the libcypher-parser dependency like this:</p>
+				<ul>
+					<li><p><strong>make, C++ and Pyton</strong></p>
+						<pre><code class="lang-sh">sudo apk add make gcc g++ python
 </code></pre>
+					</li>
+					<li><p><strong>libcypher-parser</strong></p>
+						<pre><code class="lang-sh">wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
+&amp;&amp; tar zxvpf libcypher-parser-0.6.0.tar.gz \
+&amp;&amp; rm libcypher-parser-0.6.0.tar.gz \
+&amp;&amp; <span class="hljs-built_in">cd</span> libcypher-parser-0.6.0 \
+&amp;&amp; ./configure --prefix=/usr/<span class="hljs-built_in">local</span> CFLAGS=<span class="hljs-string">'-fPIC'</span> \
+&amp;&amp; make clean check \
+&amp;&amp; make install \
+&amp;&amp; <span class="hljs-built_in">cd</span> .. \
+&amp;&amp; rm -rf libcypher-parser-0.6.0
+</code></pre>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
