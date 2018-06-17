@@ -64,7 +64,14 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p><a href="https://travis-ci.com/Loupi/node-cypher-parser"><img src="https://api.travis-ci.com/Loupi/node-cypher-parser.svg" alt="Build Status"></a></p>
+				<p><a href="https://travis-ci.com/Loupi/node-cypher-parser"><img src="https://api.travis-ci.com/Loupi/node-cypher-parser.svg" alt="Build Status"></a>
+					<img src="https://img.shields.io/badge/os-macOS-green.svg?style=flat" alt="macOS">
+					<img src="https://img.shields.io/badge/os-linux-green.svg?style=flat" alt="Linux">
+					<img src="https://badges.frapsoft.com/typescript/version/typescript-next.svg?v=101" alt="TypeScript">
+					<a href="https://codecov.io/gh/Loupi/node-cypher-parser"><img src="https://codecov.io/gh/Loupi/node-cypher-parser/branch/master/graph/badge.svg" alt="codecov"></a>
+					<a href="https://codebeat.co/projects/github-com-loupi-node-cypher-parser-master"><img src="https://codebeat.co/badges/f4125e60-0caf-423d-8848-4d3bb180eb33" alt="codebeat badge"></a>
+					<a href="https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html"><img src="https://img.shields.io/badge/docs-typedoc-1FBCE4.svg" alt="Docs"></a>
+				<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a></p>
 				<h1 id="cypher-parser">cypher-parser</h1>
 				<p>A cypher graph query language parser/linter addon module for NodeJS.<br>It relies on <a href="https://github.com/cleishm/libcypher-parser">libcypher-parser</a> and <a href="https://github.com/Tencent/rapidjson">rapidjson</a> under the hood.</p>
 				<h2 id="features">Features</h2>
@@ -110,6 +117,23 @@
 					</li>
 				</ul>
 				<h2 id="usage">Usage</h2>
+				<p>The cypher-parser module has only one exported function: parse.<br>It takes a query string or a ParseParameters object as input, and returns a promise as output.<br>On success, the promise returns a ParseResult object or a string.<br>On failure, a CypherParserError object is thrown. It contains a ParseResult object for more details.  </p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ParseParameters {
+  query: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// The cypher query to parse.</span>
+  width?: <span class="hljs-built_in">number</span>;     <span class="hljs-comment">// Width of the text AST output. Default 0.</span>
+  dumpAst?: <span class="hljs-built_in">boolean</span>;  <span class="hljs-comment">// If true, the ParseResult will contain a text description of the AST tree. Default false.</span>
+  rawJson?: <span class="hljs-built_in">boolean</span>;  <span class="hljs-comment">// If true, the result will be a json string instead of a ParseResult object. Default false.</span>
+  colorize?: <span class="hljs-built_in">boolean</span>; <span class="hljs-comment">// If true, the text AST output and error descriptions will be ANSI colored. Nice for console output.</span>
+}
+</code></pre>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ParseResult {
+  ast: <span class="hljs-built_in">string</span>;                        <span class="hljs-comment">// A text description of the AST tree.</span>
+  errors: ParseError[];               <span class="hljs-comment">// Array of parse error encountered.</span>
+  directives: parseResultDirective[]; <span class="hljs-comment">// Parsed cypher directives.</span>
+  roots: ast.AstNode[];               <span class="hljs-comment">// The AST tree of the parsed query. Can be walked by programs. See API doc for details.</span>
+  nnodes: <span class="hljs-built_in">number</span>;                     <span class="hljs-comment">// Number of nodes parsed.</span>
+}
+</code></pre>
 				<ul>
 					<li><strong>Typscript</strong>
 						<code>`</code>typescript
@@ -127,8 +151,8 @@
 					});
 					console.log(result.ast);
 					} catch (e) {
-					const result: cypher.IParseResult = e;
-					for (const error of result.errors) {
+					const result: cypher.CypherParserError = e;
+					for (const error of result.parseResult.errors) {
 					console.log(error.position.line + &quot;:&quot; + error.position.column + &quot;: &quot; + error.message);
 					console.log(error.context);
 					console.log(&quot; &quot;.repeat(error.contextOffset) + &quot;^&quot;);
@@ -154,7 +178,7 @@ async function testCypher() {
     });
     console.<span class="hljs-built_in">log</span>(result.ast);
   } <span class="hljs-built_in">catch</span> (e) {
-    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">var</span> i = <span class="hljs-number">0</span>; i &lt; e.<span class="hljs-built_in">errors</span>.<span class="hljs-built_in">length</span>; i++) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">var</span> i = <span class="hljs-number">0</span>; i &lt; e.parseResult.<span class="hljs-built_in">errors</span>.<span class="hljs-built_in">length</span>; i++) {
       <span class="hljs-built_in">var</span> <span class="hljs-built_in">error</span> = e.<span class="hljs-built_in">errors</span>[i];
       console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">error</span>.<span class="hljs-built_in">position</span>.line + <span class="hljs-string">":"</span> + <span class="hljs-built_in">error</span>.<span class="hljs-built_in">position</span>.column + <span class="hljs-string">": "</span> + <span class="hljs-built_in">error</span>.message);
       console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">error</span>.<span class="hljs-built_in">context</span>);

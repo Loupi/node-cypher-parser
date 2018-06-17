@@ -41,6 +41,15 @@ describe("cypher.parse", () => {
     });
   });
 
+  describe("given rawJson option", () => {
+    it("should return a json string", async () => {
+      const promise = cypher.parse({query, rawJson: true});
+      const result = await promise;
+      expect(promise).to.be.a("promise");
+      expect(result).to.be.a("string");
+    });
+  });
+
   describe("given bad query", () => {
     it("should throw parse error", async () => {
       try {
@@ -48,11 +57,24 @@ describe("cypher.parse", () => {
         expect.fail();
       }
       catch (error) {
-        expect(error).to.be.an("object");
-        expect(error).to.have.property("errors");
-        expect(error.errors).to.be.an("array");
+        expect(error).to.have.property("parseResult");
+        expect(error.parseResult).to.be.an("object");
+        expect(error.parseResult).to.have.property("errors");
+        expect(error.parseResult.errors).to.be.an("array");
       }
     });
   });
 
+  describe("given bad query and rawJson option", () => {
+    it("should throw parse error as json string", async () => {
+      try {
+        await cypher.parse({query: badQuery, rawJson: true});
+        expect.fail();
+      }
+      catch (error) {
+        expect(error).to.have.property("parseResult");
+        expect(error.parseResult).to.be.a("string");
+      }
+    });
+  });
 });

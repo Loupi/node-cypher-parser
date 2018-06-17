@@ -4,41 +4,52 @@ const binding_path = binary.find(path.resolve(path.join(__dirname, "../package.j
 const cypher = require(binding_path);
 import * as ast from "./ast";
 
-export interface IParsePosition {
+export interface ParsePosition {
   line: number;
   column: number;
   offset: number;
 }
 
-export interface IParseError {
-  position: IParsePosition;
+export interface ParseError {
+  position: ParsePosition;
   message: string;
   context: string;
   contextOffset: number;
 }
 
-export type parseResultDirective = ast.IStatement|ast.ICommand;
-export interface IParseResult {
+export type parseResultDirective = ast.Statement|ast.Command;
+export interface ParseResult {
   ast: string;
-  errors: IParseError[];
+  errors: ParseError[];
   directives: parseResultDirective[];
-  roots: ast.IAstNode[];
+  roots: ast.AstNode[];
   nnodes: number;
 }
 
-export interface IParseParameters {
+export interface ParseParameters {
   query: string;
   width?: number;
   dumpAst?: boolean;
+  rawJson?: boolean;
   colorize?: boolean;
 }
 
-export const parse = (query: string | IParseParameters) => new Promise<IParseResult>((resolve, reject) =>
-  cypher.parse(query, function(succeeded: Boolean, result: IParseResult) {
+export class CypherParserError extends Error {
+  constructor(parseResult: ParseResult) {
+      super("Cypher Parser Error");
+      this.parseResult = parseResult;
+      Object.setPrototypeOf(this, CypherParserError.prototype);
+  }
+
+  parseResult: ParseResult;
+}
+
+export const parse = (query: string | ParseParameters) => new Promise<ParseResult>((resolve, reject) =>
+  cypher.parse(function(succeeded: Boolean, result: ParseResult) {
     if (succeeded) {
       resolve(result);
     } else {
-      reject(result);
+      reject(new CypherParserError(result));
     }
-  })
+  }, query)
 );

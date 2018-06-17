@@ -58,6 +58,32 @@ wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcyp
 ```
 
 ## Usage
+
+The cypher-parser module has only one exported function: parse.  
+It takes a query string or a ParseParameters object as input, and returns a promise as output.  
+On success, the promise returns a ParseResult object or a string.  
+On failure, a CypherParserError object is thrown. It contains a ParseResult object for more details.  
+
+```typescript
+export interface ParseParameters {
+  query: string;      // The cypher query to parse.
+  width?: number;     // Width of the text AST output. Default 0.
+  dumpAst?: boolean;  // If true, the ParseResult will contain a text description of the AST tree. Default false.
+  rawJson?: boolean;  // If true, the result will be a json string instead of a ParseResult object. Default false.
+  colorize?: boolean; // If true, the text AST output and error descriptions will be ANSI colored. Nice for console output.
+}
+```  
+
+```typescript
+export interface ParseResult {
+  ast: string;                        // A text description of the AST tree.
+  errors: ParseError[];               // Array of parse error encountered.
+  directives: parseResultDirective[]; // Parsed cypher directives.
+  roots: ast.AstNode[];               // The AST tree of the parsed query. Can be walked by programs. See API doc for details.
+  nnodes: number;                     // Number of nodes parsed.
+}
+```
+
 * **Typscript**
 ```typescript
 import * as cypher from "cypher-parser";
@@ -75,8 +101,8 @@ async function testCypher() {
     });
     console.log(result.ast);
   } catch (e) {
-    const result: cypher.IParseResult = e;
-    for (const error of result.errors) {
+    const result: cypher.CypherParserError = e;
+    for (const error of result.parseResult.errors) {
       console.log(error.position.line + ":" + error.position.column + ": " + error.message);
       console.log(error.context);
       console.log(" ".repeat(error.contextOffset) + "^");
@@ -103,7 +129,7 @@ async function testCypher() {
     });
     console.log(result.ast);
   } catch (e) {
-    for (var i = 0; i < e.errors.length; i++) {
+    for (var i = 0; i < e.parseResult.errors.length; i++) {
       var error = e.errors[i];
       console.log(error.position.line + ":" + error.position.column + ": " + error.message);
       console.log(error.context);

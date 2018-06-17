@@ -1,525 +1,525 @@
-export interface IAstNode {
+export interface AstNode {
   type: string;
 }
 
-export interface IParameter extends IAstNode {
+export interface Parameter extends AstNode {
   name: string;
 }
 
-export interface IPredicate extends IAstNode {}
+export interface Predicate extends AstNode {}
 
-export interface IMatch extends IAstNode {
+export interface Match extends AstNode {
   optional: boolean;
-  pattern: IPattern;
-  hints: IMatchHint[];
-  predicate: IPredicate; // Expression instead?
+  pattern: Pattern;
+  hints: MatchHint[];
+  predicate: Predicate; // Expression instead?
 }
 
-export interface IQuery extends IAstNode {
-  clauses: IClause[];
-  options: IQueryOption[];
+export interface Query extends AstNode {
+  clauses: Clause[];
+  options: QueryOption[];
 }
 
-export interface IStatement extends IAstNode {
-  body: IQuery|ISchemaCommand;
-  options: IStatementOption[];
+export interface Statement extends AstNode {
+  body: Query|SchemaCommand;
+  options: StatementOption[];
 }
 
-export interface IStatementOption extends IAstNode {}
+export interface StatementOption extends AstNode {}
 
-export interface ICypherOption extends IStatementOption {
-  version: IString;
-  params: ICypherOptionParam[];
+export interface CypherOption extends StatementOption {
+  version: String;
+  params: CypherOptionParam[];
 }
 
-export interface ICypherOptionParam extends IAstNode {
-  name: IString;
-  value: IString;
+export interface CypherOptionParam extends AstNode {
+  name: String;
+  value: String;
 }
 
-export interface IExplainOption extends IStatementOption {}
-export interface IProfileOption extends IStatementOption {}
+export interface ExplainOption extends StatementOption {}
+export interface ProfileOption extends StatementOption {}
 
-export interface ISchemaCommand extends IAstNode {}
+export interface SchemaCommand extends AstNode {}
 
-export interface ICreateNodePropIndex extends ISchemaCommand {
-  label: ILabel;
-  propName: IPropName;
+export interface CreateNodePropIndex extends SchemaCommand {
+  label: Label;
+  propName: PropName;
 }
 
-export interface IDropNodePropIndex extends ISchemaCommand {
-  label: ILabel;
-  propName: IPropName;
+export interface DropNodePropIndex extends SchemaCommand {
+  label: Label;
+  propName: PropName;
 }
 
-export interface ICreateNodePropConstraint extends ISchemaCommand {
-  identifier: IIdentifier;
-  label: ILabel;
-  expression: IExpression;
+export interface CreateNodePropConstraint extends SchemaCommand {
+  identifier: Identifier;
+  label: Label;
+  expression: Expression;
   unique: boolean;
 }
 
-export interface IDropNodePropConstraint extends ISchemaCommand {
-  identifier: IIdentifier;
-  label: ILabel;
-  expression: IExpression;
+export interface DropNodePropConstraint extends SchemaCommand {
+  identifier: Identifier;
+  label: Label;
+  expression: Expression;
   unique: boolean;
 }
 
-export interface ICreateRelPropConstraint extends ISchemaCommand {
-  identifier: IIdentifier;
-  relType: IRelType;
-  expression: IExpression;
+export interface CreateRelPropConstraint extends SchemaCommand {
+  identifier: Identifier;
+  relType: RelType;
+  expression: Expression;
   unique: boolean;
 }
 
-export interface IDropRelPropConstraint extends ISchemaCommand {
-  identifier: IIdentifier;
-  relType: IRelType;
-  expression: IExpression;
+export interface DropRelPropConstraint extends SchemaCommand {
+  identifier: Identifier;
+  relType: RelType;
+  expression: Expression;
   unique: boolean;
 }
 
-export interface IQueryOption extends IAstNode {}
+export interface QueryOption extends AstNode {}
 
-export interface IUsingPeriodicCommit extends IQueryOption {
+export interface UsingPeriodicCommit extends QueryOption {
   limit: number;
 }
 
-export interface IQueryClause extends IAstNode {}
+export interface QueryClause extends AstNode {}
 
-export interface ILoadCsv extends IQueryClause {
+export interface LoadCsv extends QueryClause {
   withHeaders: boolean;
-  url: IExpression;
-  identifier: IIdentifier;
-  fieldTerminator: IString;
+  url: Expression;
+  identifier: Identifier;
+  fieldTerminator: String;
 }
 
-export interface IStart extends IQueryClause {
-  points: IQueryOption[];
-  predicate: IPredicate;
+export interface Start extends QueryClause {
+  points: QueryOption[];
+  predicate: Predicate;
 }
 
-export interface IStartPoint extends IAstNode {}
+export interface StartPoint extends AstNode {}
 
-export interface INodeIndexLookup extends IStartPoint {
-  identifier: IIdentifier;
-  indexName: IIndexName;
-  propName: IPropName;
-  lookup: IString|IParameter;
+export interface NodeIndexLookup extends StartPoint {
+  identifier: Identifier;
+  indexName: IndexName;
+  propName: PropName;
+  lookup: String|Parameter;
 }
 
-export interface INodeIndexQuery extends IStartPoint {
-  identifier: IIdentifier;
-  indexName: IIndexName;
-  query: IString|IParameter;
+export interface NodeIndexQuery extends StartPoint {
+  identifier: Identifier;
+  indexName: IndexName;
+  query: String|Parameter;
 }
 
-export interface INodeIdLookup extends IStartPoint {
-  identifier: IIdentifier;
-  ids: IInteger[];
+export interface NodeIdLookup extends StartPoint {
+  identifier: Identifier;
+  ids: Integer[];
 }
 
-export interface IAllNodesScan extends IStartPoint {
-  identifier: IIdentifier;
+export interface AllNodesScan extends StartPoint {
+  identifier: Identifier;
 }
 
-export interface IRelIndexQuery extends IStartPoint {
-  identifier: IIdentifier;
-  indexName: IIndexName;
-  query: IString|IParameter;
+export interface RelIndexQuery extends StartPoint {
+  identifier: Identifier;
+  indexName: IndexName;
+  query: String|Parameter;
 }
 
-export interface IRelIdLookup extends IStartPoint {
-  identifier: IIdentifier;
-  ids: IInteger[];
+export interface RelIdLookup extends StartPoint {
+  identifier: Identifier;
+  ids: Integer[];
 }
 
-export interface IAllRelsScan extends IStartPoint {
-  identifier: IIdentifier;
+export interface AllRelsScan extends StartPoint {
+  identifier: Identifier;
 }
 
-export interface IMatchHint extends IAstNode {}
+export interface MatchHint extends AstNode {}
 
-export interface IUsingIndex extends IMatchHint {
-  identifier: IIdentifier;
-  label: ILabel;
-  propName: IPropName;
+export interface UsingIndex extends MatchHint {
+  identifier: Identifier;
+  label: Label;
+  propName: PropName;
 }
 
-export interface IUsingJoin extends IMatchHint {
-  identifier: IIdentifier;
+export interface UsingJoin extends MatchHint {
+  identifier: Identifier;
 }
 
-export interface IUsingScan extends IMatchHint {
-  identifier: IIdentifier;
-  label: ILabel;
+export interface UsingScan extends MatchHint {
+  identifier: Identifier;
+  label: Label;
 }
 
-export interface IClause extends IAstNode {}
+export interface Clause extends AstNode {}
 
-export interface IMerge extends IClause {
-  path: IPatternPath;
-  actions: IMergeHint[];
+export interface Merge extends Clause {
+  path: PatternPath;
+  actions: MergeHint[];
 }
 
-export interface IMergeHint extends IAstNode {}
+export interface MergeHint extends AstNode {}
 
-export interface IOnMatch extends IMergeHint {
-  items: ISetItem[];
+export interface OnMatch extends MergeHint {
+  items: SetItem[];
 }
 
-export interface IOnCreate extends IMergeHint {
-  items: ISetItem[];
+export interface OnCreate extends MergeHint {
+  items: SetItem[];
 }
 
-export interface ICreate extends IClause {
+export interface Create extends Clause {
   unique: boolean;
-  pattern: IPatternPath;
+  pattern: PatternPath;
 }
 
-export interface ISet extends IClause {
-  items: ISetItem[];
+export interface Set extends Clause {
+  items: SetItem[];
 }
 
-export interface ISetItem extends IAstNode {}
+export interface SetItem extends AstNode {}
 
-export interface ISetProperty extends ISetItem {
-  property: IPropertyOperator;
-  expression: IExpression;
+export interface SetProperty extends SetItem {
+  property: PropertyOperator;
+  expression: Expression;
 }
 
-export interface ISetAllProperties extends ISetItem {
-  identifier: IIdentifier;
-  expression: IExpression;
+export interface SetAllProperties extends SetItem {
+  identifier: Identifier;
+  expression: Expression;
 }
 
-export interface IMergeProperties extends ISetItem {
-  identifier: IIdentifier;
-  expression: IExpression;
+export interface MergeProperties extends SetItem {
+  identifier: Identifier;
+  expression: Expression;
 }
 
-export interface ISetLabels extends ISetItem {
-  identifier: IIdentifier;
-  labels: ILabel[];
+export interface SetLabels extends SetItem {
+  identifier: Identifier;
+  labels: Label[];
 }
 
-export interface IDelete extends IClause {
+export interface Delete extends Clause {
   detach: true;
-  expressions: IExpression[];
+  expressions: Expression[];
 }
 
-export interface IRemove extends IClause {
-  items: IExpression[];
+export interface Remove extends Clause {
+  items: Expression[];
 }
 
-export interface IRemoveItem extends IAstNode {}
+export interface RemoveItem extends AstNode {}
 
-export interface IRemoveLabels extends IRemoveItem {
-  identifier: IIdentifier;
-  labels: ILabel[];
+export interface RemoveLabels extends RemoveItem {
+  identifier: Identifier;
+  labels: Label[];
 }
 
-export interface IRemoveProperty extends IRemoveItem {
-  property: IPropertyOperator;
+export interface RemoveProperty extends RemoveItem {
+  property: PropertyOperator;
 }
 
-export interface IForEach extends IClause {
-  identifier: IIdentifier;
-  expression: IExpression;
-  clauses: IClause[];
+export interface ForEach extends Clause {
+  identifier: Identifier;
+  expression: Expression;
+  clauses: Clause[];
 }
 
-export interface IWith extends IClause {
+export interface With extends Clause {
   distinct: boolean;
   includeExisting: boolean;
-  projections: IProjection[];
-  orderBy: IOrderBy;
-  skip: IInteger;
-  limit: IInteger;
-  predicate: IExpression;
+  projections: Projection[];
+  orderBy: OrderBy;
+  skip: Integer;
+  limit: Integer;
+  predicate: Expression;
 }
 
-export interface IUnwind extends IClause {
-  expression: IExpression;
-  alias: IExpression;
+export interface Unwind extends Clause {
+  expression: Expression;
+  alias: Expression;
 }
 
-export interface ICall extends IClause {
-  procName: IProcName;
-  args: IExpression[];
-  projections: IProjection[];
+export interface Call extends Clause {
+  procName: ProcName;
+  args: Expression[];
+  projections: Projection[];
 }
 
-export interface IReturn extends IClause {
+export interface Return extends Clause {
   distinct: boolean;
   includeExisting: boolean;
-  projections: IProjection[];
-  orderBy: IOrderBy;
-  skip: IInteger;
-  limit: IInteger;
+  projections: Projection[];
+  orderBy: OrderBy;
+  skip: Integer;
+  limit: Integer;
 }
 
-export interface IProjection extends IAstNode {
-  expression: IExpression;
-  alias: IIdentifier;
+export interface Projection extends AstNode {
+  expression: Expression;
+  alias: Identifier;
 }
 
-export interface IOrderBy extends IAstNode {
-  items: ISortItem[];
+export interface OrderBy extends AstNode {
+  items: SortItem[];
 }
 
-export interface ISortItem extends IAstNode {
-  expression: IExpression;
+export interface SortItem extends AstNode {
+  expression: Expression;
   ascending: boolean;
 }
 
-export interface IUnion extends IClause {
+export interface Union extends Clause {
   all: boolean;
 }
 
-export interface IExpression extends IAstNode {}
+export interface Expression extends AstNode {}
 
-export interface IUnaryOperator extends IExpression {
+export interface UnaryOperator extends Expression {
   op: string;
-  arg: IExpression;
+  arg: Expression;
 }
 
-export interface IBinaryOperator extends IExpression {
+export interface BinaryOperator extends Expression {
   op: string;
-  arg1: IExpression;
-  arg2: IExpression;
+  arg1: Expression;
+  arg2: Expression;
 }
 
-export interface IComparison extends IExpression {
+export interface Comparison extends Expression {
   length: number;
   ops: string[];
-  args: IExpression[];
+  args: Expression[];
 }
 
-export interface IApplyOperator extends IExpression {
-  funcName: IFunctionName;
+export interface ApplyOperator extends Expression {
+  funcName: FunctionName;
   distinct: boolean;
-  args: IExpression[];
+  args: Expression[];
 }
 
-export interface IApplyAllOperator extends IExpression {
-  funcName: IFunctionName;
+export interface ApplyAllOperator extends Expression {
+  funcName: FunctionName;
   distinct: boolean;
 }
 
-export interface IPropertyOperator extends IExpression {
-  expression: IExpression;
-  propName: IPropName;
+export interface PropertyOperator extends Expression {
+  expression: Expression;
+  propName: PropName;
 }
 
-export interface ISubscriptOperator extends IExpression {
-  expression: IExpression;
-  subscript: IExpression;
+export interface SubscriptOperator extends Expression {
+  expression: Expression;
+  subscript: Expression;
 }
 
-export interface ISliceOperator extends IExpression {
-  expression: IExpression;
-  start: IExpression;
-  end: IExpression;
+export interface SliceOperator extends Expression {
+  expression: Expression;
+  start: Expression;
+  end: Expression;
 }
 
-export interface IMapProjection extends IExpression {
-  expression: IExpression;
-  selectors: IMapProjectionSelector[];
+export interface MapProjection extends Expression {
+  expression: Expression;
+  selectors: MapProjectionSelector[];
 }
 
-export interface IMapProjectionSelector extends IAstNode {}
+export interface MapProjectionSelector extends AstNode {}
 
-export interface IMapProjectionLiteral extends IMapProjectionSelector {
-  propName: IPropName;
-  expression: IExpression;
+export interface MapProjectionLiteral extends MapProjectionSelector {
+  propName: PropName;
+  expression: Expression;
 }
 
-export interface IMapProjectionProperty extends IMapProjectionSelector {
-  propName: IPropName;
+export interface MapProjectionProperty extends MapProjectionSelector {
+  propName: PropName;
 }
 
-export interface IMapProjectionIdentifier extends IMapProjectionSelector {
-  identifier: IIdentifier;
+export interface MapProjectionIdentifier extends MapProjectionSelector {
+  identifier: Identifier;
 }
 
-export interface IMapProjectionAllProperties extends IMapProjectionSelector {}
+export interface MapProjectionAllProperties extends MapProjectionSelector {}
 
-export interface IListComprehension extends IExpression {
-  identifier: IIdentifier;
-  expression: IExpression;
-  predicate: IExpression;
-  eval: IExpression;
+export interface ListComprehension extends Expression {
+  identifier: Identifier;
+  expression: Expression;
+  predicate: Expression;
+  eval: Expression;
 }
 
-export interface IPatternComprehension extends IExpression {
-  identifier: IIdentifier;
-  pattern: IPatternPath;
-  predicate: IExpression;
-  eval: IExpression;
+export interface PatternComprehension extends Expression {
+  identifier: Identifier;
+  pattern: PatternPath;
+  predicate: Expression;
+  eval: Expression;
 }
 
-export interface IAlternative {
-  predicate: IExpression;
-  value: IExpression;
+export interface Alternative {
+  predicate: Expression;
+  value: Expression;
 }
 
-export interface ICase extends IExpression {
-  expression: IExpression;
-  alternatives: IAlternative[];
-  default: IExpression;
+export interface Case extends Expression {
+  expression: Expression;
+  alternatives: Alternative[];
+  default: Expression;
 }
 
-export interface IFilter extends IListComprehension {
-  identifier: IIdentifier;
-  expression: IExpression;
-  predicate: IExpression;
+export interface Filter extends ListComprehension {
+  identifier: Identifier;
+  expression: Expression;
+  predicate: Expression;
 }
 
-export interface IExtract extends IListComprehension {
-  identifier: IIdentifier;
-  expression: IExpression;
-  eval: IExpression;
+export interface Extract extends ListComprehension {
+  identifier: Identifier;
+  expression: Expression;
+  eval: Expression;
 }
 
-export interface IReduce extends IExpression {
-  accumulator: IIdentifier;
-  init: IExpression;
-  identifier: IIdentifier;
-  expression: IExpression;
-  eval: IExpression;
+export interface Reduce extends Expression {
+  accumulator: Identifier;
+  init: Expression;
+  identifier: Identifier;
+  expression: Expression;
+  eval: Expression;
 }
 
-export interface IAll extends IListComprehension {
-  identifier: IIdentifier;
-  expression: IExpression;
-  predicate: IExpression;
+export interface All extends ListComprehension {
+  identifier: Identifier;
+  expression: Expression;
+  predicate: Expression;
 }
 
-export interface IAny extends IListComprehension {
-  identifier: IIdentifier;
-  expression: IExpression;
-  predicate: IExpression;
+export interface Any extends ListComprehension {
+  identifier: Identifier;
+  expression: Expression;
+  predicate: Expression;
 }
 
-export interface ISingle extends IListComprehension {
-  identifier: IIdentifier;
-  expression: IExpression;
-  predicate: IExpression;
+export interface Single extends ListComprehension {
+  identifier: Identifier;
+  expression: Expression;
+  predicate: Expression;
 }
 
-export interface INone extends IListComprehension {
-  identifier: IIdentifier;
-  expression: IExpression;
-  predicate: IExpression;
+export interface None extends ListComprehension {
+  identifier: Identifier;
+  expression: Expression;
+  predicate: Expression;
 }
 
-export interface ICollection extends IExpression {
-  elements: IAstNode;
+export interface Collection extends Expression {
+  elements: AstNode;
 }
 
-export interface IMap extends IExpression {
-  entries: { [name: string]: IAstNode };
+export interface Map extends Expression {
+  entries: { [name: string]: AstNode };
 }
 
-export interface IIdentifier extends IExpression {
+export interface Identifier extends Expression {
   name: string;
 }
 
-export interface IString extends IExpression {
+export interface String extends Expression {
   value: string;
 }
 
-export interface IInteger extends IExpression {
+export interface Integer extends Expression {
   value: number;
 }
 
-export interface IFloat extends IExpression {
+export interface Float extends Expression {
   value: number;
 }
 
-export interface IBoolean extends IExpression {}
-export interface ITrue extends IBoolean {}
-export interface IFalse extends IBoolean {}
-export interface INull extends IExpression {}
+export interface Boolean extends Expression {}
+export interface True extends Boolean {}
+export interface False extends Boolean {}
+export interface Null extends Expression {}
 
-export interface ILabel extends IAstNode {
+export interface Label extends AstNode {
   name: string;
 }
 
-export interface IRelType extends IAstNode {
+export interface RelType extends AstNode {
   name: string;
 }
 
-export interface IPropName extends IAstNode {
+export interface PropName extends AstNode {
   value: string;
 }
 
-export interface IFunctionName extends IAstNode {
+export interface FunctionName extends AstNode {
   value: string;
 }
 
-export interface IIndexName extends IAstNode {
+export interface IndexName extends AstNode {
   value: string;
 }
 
-export interface IProcName extends IAstNode {
+export interface ProcName extends AstNode {
   value: string;
 }
 
-export interface IPattern extends IAstNode {
-  paths: IPatternPath[];
+export interface Pattern extends AstNode {
+  paths: PatternPath[];
 }
 
-export type patternPathElement = INodePattern | IRelPattern;
+export type patternPathElement = NodePattern | RelPattern;
 
-export interface IPatternPath extends IAstNode {
+export interface PatternPath extends AstNode {
   elements: patternPathElement[];
 }
 
-export interface INamedPath extends IPatternPath {
-  identifier: IIdentifier;
-  path: IPatternPath;
+export interface NamedPath extends PatternPath {
+  identifier: Identifier;
+  path: PatternPath;
 }
 
-export interface IShortestPath extends IPatternPath {
+export interface ShortestPath extends PatternPath {
   single: boolean;
-  path: IPatternPath;
+  path: PatternPath;
 }
 
-export interface INodePattern extends IAstNode {
-  identifier: IIdentifier;
-  labels: ILabel[];
-  properties: IMap|IParameter;
+export interface NodePattern extends AstNode {
+  identifier: Identifier;
+  labels: Label[];
+  properties: Map|Parameter;
 }
 
-export interface IRelPattern extends IAstNode {
+export interface RelPattern extends AstNode {
   direction: number;
-  identifier: IIdentifier;
-  relTypes: ILabel[];
-  properties: IMap|IParameter;
-  varLength: IRange;
+  identifier: Identifier;
+  relTypes: Label[];
+  properties: Map|Parameter;
+  varLength: Range;
 }
 
-export interface IRange extends IAstNode {
+export interface Range extends AstNode {
   start: number;
   end: number;
 }
 
-export interface ICommand extends IAstNode {
+export interface Command extends AstNode {
   name: string;
-  args: IString[];
+  args: String[];
 }
 
-export interface IComment extends IAstNode {
+export interface Comment extends AstNode {
   value: string;
 }
 
-export interface ILineComment extends IComment {}
+export interface LineComment extends Comment {}
 
-export interface IBlockComment extends IComment {}
+export interface BlockComment extends Comment {}
 
-export interface IError extends IAstNode {
+export interface Error extends AstNode {
   value: string;
 }

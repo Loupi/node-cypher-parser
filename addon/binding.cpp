@@ -7,8 +7,8 @@ using namespace v8;
 
 class CypherParserWorker : public AsyncWorker {
 public:
-  CypherParserWorker(const string& query, unsigned int width, bool dumpAst, bool colorize, Callback *callback)
-  : AsyncWorker(callback), query(query), width(width), dumpAst(dumpAst), colorize(colorize) {}
+  CypherParserWorker(const string& query, unsigned int width, bool dumpAst, bool rawJson, bool colorize, Callback *callback)
+  : AsyncWorker(callback), query(query), width(width), dumpAst(dumpAst), rawJson(rawJson), colorize(colorize) {}
 
   ~CypherParserWorker() {}
 
@@ -21,8 +21,13 @@ public:
     Nan::JSON NanJSON;
     auto json = New(this->json.c_str());
     if (!json.IsEmpty()) {
-      Nan::MaybeLocal<v8::Value> result = NanJSON.Parse(json.ToLocalChecked());
       Nan::MaybeLocal<v8::Value> succeeded = Nan::New(this->succeeded);
+      Nan::MaybeLocal<v8::Value> result;
+
+      if (rawJson)
+        result = json.ToLocalChecked();
+      else
+        result = NanJSON.Parse(json.ToLocalChecked());
 
       Local<Value> argv[] = {
         succeeded.ToLocalChecked(),
@@ -37,16 +42,67 @@ private:
   string query;
   unsigned int width;
   bool dumpAst;
+  bool rawJson;
   bool colorize;
   string json;
   bool succeeded;
 };
+
+Local<Value> GetOptionalStringParam(const char* name, Local<Object>& object, Local<Value>& defaultValue) {
+  auto key = Nan::New(name).ToLocalChecked();
+  if (object->Has(key)) {
+    auto val = object->Get(key);
+    if (!val->IsString()) {
+      std::string msg = "Property ";
+      msg += name;
+      msg += " must be a string.";
+      ThrowError(msg.c_str());
+      return defaultValue;
+    }
+    return val;
+  }
+  return defaultValue;
+}
+
+unsigned int GetOptionalUIntParam(const char* name, Local<Object>& object, unsigned int defaultValue) {
+  auto key = Nan::New(name).ToLocalChecked();
+  if (object->Has(key)) {
+    auto val = object->Get(key);
+    if (!val->IsNumber()) {
+      std::string msg = "Property ";
+      msg += name;
+      msg += " must be a number.";
+      ThrowError(msg.c_str());
+      return defaultValue;
+    }
+    return val->Uint32Value();
+  }
+  return defaultValue;
+}
+
+bool GetOptionalBoolParam(const char* name, Local<Object>& object, bool defaultValue) {
+  auto key = Nan::New(name).ToLocalChecked();
+  if (object->Has(key)) {
+    auto val = object->Get(key);
+    if (!val->IsBoolean()) {
+      std::string msg = "Property ";
+      msg += name;
+      msg += " must be a boolean.";
+      ThrowError(msg.c_str());
+      return defaultValue;
+    }
+    return val->BooleanValue();
+  }
+  return defaultValue;
+}
+
 
 NAN_METHOD(Parse) {
   Nan::HandleScope scope; 
   Local<Value> query;
   unsigned int width = 0;
   bool dumpAst = false;
+  bool rawJson = false;
   bool colorize = false;
 
   if (info.Length() < 2) {
@@ -54,56 +110,21 @@ NAN_METHOD(Parse) {
     return;
   }
 
-  if (!info[1]->IsFunction()) {
+  if (!info[0]->IsFunction()) {
     ThrowError("Parameter callback must be a function.");
     return;
   }
 
-  if (info[0]->IsString()) {
-    query = info[0];
+  if (info[1]->IsString()) {
+    query = info[1];
   }
   else if (info[0]->IsObject()) {
-    auto object = info[0]->ToObject();
-
-    auto key = Nan::New("query").ToLocalChecked();
-    if (object->Has(key)) {
-      auto val = object->Get(key);
-      if (!val->IsString()) {
-        ThrowError("Property query must be a string.");
-        return;
-      }
-      query = val;
-    }
-
-    key = Nan::New("width").ToLocalChecked();
-    if (object->Has(key)) {
-      auto val = object->Get(key);
-      if (!val->IsNumber()) {
-        ThrowError("Property width must be a number.");
-        return;
-      }
-      width = val->Uint32Value();
-    }
-
-    key = Nan::New("dumpAst").ToLocalChecked();
-    if (object->Has(key)) {
-      auto val = object->Get(key);
-      if (!val->IsBoolean()) {
-        ThrowError("Property dumpAst must be a boolean.");
-        return;
-      }
-      dumpAst = val->BooleanValue();
-    }
-
-    key = Nan::New("colorize").ToLocalChecked();
-    if (object->Has(key)) {
-      auto val = object->Get(key);
-      if (!val->IsBoolean()) {
-        ThrowError("Property colorize must be a boolean.");
-        return;
-      }
-      colorize = val->BooleanValue();
-    }
+    auto object = info[1]->ToObject();
+    query = GetOptionalStringParam("query", object, query);
+    width = GetOptionalUIntParam("width", object, width);
+    dumpAst = GetOptionalBoolParam("dumpAst", object, dumpAst);
+    rawJson = GetOptionalBoolParam("rawJson", object, rawJson);
+    colorize = GetOptionalBoolParam("colorize", object, colorize);
   }
   else {
     ThrowError("Parameter query must be an object or a string.");
@@ -111,8 +132,8 @@ NAN_METHOD(Parse) {
   }
 
   Utf8String uftStr(query->ToString());
-  Callback *callback = new Callback(info[1].As<Function>());
-  AsyncQueueWorker(new CypherParserWorker(*uftStr, width, dumpAst, colorize, callback));
+  Callback *callback = new Callback(info[0].As<Function>());
+  AsyncQueueWorker(new CypherParserWorker(*uftStr, width, dumpAst, rawJson, colorize, callback));
 }
 
 NAN_MODULE_INIT(InitAll) {
