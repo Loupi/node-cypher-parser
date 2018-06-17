@@ -36,27 +36,6 @@ npm install cypher-parser
 The installation process will try to download a pre-built binary module matching your Node and OS version.  
 If it cannot be found, you will have to first run the steps in **Custom Build**.
 
-## Custom Build
-In case a binary distribution is not available for your system, you must install build tools and compile the libcypher-parser dependency like this:
-
-* **make, C++ and Pyton**
-```sh
-sudo apk add make gcc g++ python
-```
-
-* **libcypher-parser**
-```sh
-wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
-&& tar zxvpf libcypher-parser-0.6.0.tar.gz \
-&& rm libcypher-parser-0.6.0.tar.gz \
-&& cd libcypher-parser-0.6.0 \
-&& ./configure --prefix=/usr/local CFLAGS='-fPIC' \
-&& make clean check \
-&& make install \
-&& cd .. \
-&& rm -rf libcypher-parser-0.6.0
-```
-
 ## Usage
 
 The cypher-parser module has only one exported function: parse.  
@@ -138,4 +117,25 @@ async function testCypher() {
     }
   }
 }
+```
+
+## Custom Build
+In case a binary distribution is not available for your system, you must install build tools and compile the libcypher-parser dependency like this:
+
+* **make, C++ and Pyton**
+```sh
+sudo apk add make gcc g++ python
+```
+
+* **libcypher-parser**
+```sh
+wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.0/libcypher-parser-0.6.0.tar.gz \
+&& tar zxvpf libcypher-parser-0.6.0.tar.gz \
+&& rm libcypher-parser-0.6.0.tar.gz \
+&& cd libcypher-parser-0.6.0 \
+&& ./configure --prefix=/usr/local CFLAGS='-fPIC' \
+&& make clean check \
+&& make install \
+&& cd .. \
+&& rm -rf libcypher-parser-0.6.0
 ```
