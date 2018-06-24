@@ -21,7 +21,7 @@ async function parseCypher() {
       console.log(error.position.line + ":" + error.position.column + ": " + error.message);
       console.log(error.context);
       console.log(" ".repeat(error.contextOffset) + "^");
-      console.log(result.ast);
+      console.log(result.parseResult.ast);
     }
   }
 }

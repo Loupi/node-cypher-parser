@@ -64,7 +64,7 @@ export interface ParseResult {
 }
 ```
 
-* **Typscript**
+* **Typescript**
 ```typescript
 import * as cypher from "cypher-parser";
 
@@ -86,7 +86,7 @@ async function testCypher() {
       console.log(error.position.line + ":" + error.position.column + ": " + error.message);
       console.log(error.context);
       console.log(" ".repeat(error.contextOffset) + "^");
-      console.log(result.ast);
+      console.log(result.parseResult.ast);
     }
   }
 }
@@ -114,7 +114,7 @@ async function testCypher() {
       console.log(error.position.line + ":" + error.position.column + ": " + error.message);
       console.log(error.context);
       console.log(" ".repeat(error.contextOffset) + "^");
-      console.log(e.ast);
+      console.log(e.parseResult.ast);
     }
   }
 }
