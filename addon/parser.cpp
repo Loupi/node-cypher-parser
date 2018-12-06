@@ -783,7 +783,7 @@ void NodeBin::WalkOnCreate() const {
 void NodeBin::WalkCreate() const {
   AddMember("type", "create");
   AddMember("unique", (bool)cypher_ast_create_is_unique(node));
-  Node("pattern", cypher_ast_merge_get_pattern_path);
+  Node("pattern", cypher_ast_create_get_pattern);
 }
 
 void NodeBin::WalkSet() const {
