@@ -10,7 +10,7 @@
     "build": "npm run build-ts && npm run tslint"
   },
   "dependencies": {
-    "cypher-parser": "^0.1.0"
+    "cypher-parser": "^0.1.2"
   },
   "devDependencies": {
     "@types/node": "^10.1.3",
