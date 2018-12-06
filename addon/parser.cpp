@@ -917,7 +917,7 @@ void NodeBin::WalkComparison() const {
   AddMember("type", "comparison");
   AddMember("length", (int)cypher_ast_comparison_get_length(node));
   LoopOps("ops", cypher_ast_comparison_get_length, cypher_ast_comparison_get_operator);
-  LoopNodes("args", cypher_ast_comparison_get_length(node), cypher_ast_comparison_get_argument);
+  LoopNodes("args", cypher_ast_comparison_get_length(node) + 1, cypher_ast_comparison_get_argument);
 }
 
 void NodeBin::WalkApplyOperator() const {
