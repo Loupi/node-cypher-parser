@@ -1187,7 +1187,7 @@ void NodeBin::WalkRelPattern() const {
   Node("identifier", cypher_ast_rel_pattern_get_identifier);
   LoopNodes("reltypes", cypher_ast_rel_pattern_nreltypes, cypher_ast_rel_pattern_get_reltype);
   Node("properties", cypher_ast_rel_pattern_get_properties);
-  Node("varLength", cypher_ast_rel_pattern_get_properties);
+  Node("varLength", cypher_ast_rel_pattern_get_varlength);
 }
 
 void NodeBin::WalkRange() const {
