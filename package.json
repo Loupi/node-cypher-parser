@@ -47,8 +47,8 @@
   },
   "homepage": "https://github.com/Loupi/node-cypher-parser#readme",
   "dependencies": {
-    "nan": "^2.10.0",
-    "node-pre-gyp": "^0.10.0"
+    "nan": "^2.14.0",
+    "node-pre-gyp": "^0.10.3"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
