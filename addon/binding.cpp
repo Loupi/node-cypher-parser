@@ -50,8 +50,8 @@ private:
 
 Local<Value> GetOptionalStringParam(const char* name, Local<Object>& object, Local<Value>& defaultValue) {
   auto key = Nan::New(name).ToLocalChecked();
-  if (object->Has(key)) {
-    auto val = object->Get(key);
+  if (object->Has(Nan::GetCurrentContext(), key).FromJust()) {
+    auto val = object->Get(Nan::GetCurrentContext(), key).ToLocalChecked();
     if (!val->IsString()) {
       std::string msg = "Property ";
       msg += name;
@@ -66,8 +66,8 @@ Local<Value> GetOptionalStringParam(const char* name, Local<Object>& object, Loc
 
 unsigned int GetOptionalUIntParam(const char* name, Local<Object>& object, unsigned int defaultValue) {
   auto key = Nan::New(name).ToLocalChecked();
-  if (object->Has(key)) {
-    auto val = object->Get(key);
+  if (object->Has(Nan::GetCurrentContext(), key).FromJust()) {
+    auto val = object->Get(Nan::GetCurrentContext(), key).ToLocalChecked();
     if (!val->IsNumber()) {
       std::string msg = "Property ";
       msg += name;
@@ -75,15 +75,15 @@ unsigned int GetOptionalUIntParam(const char* name, Local<Object>& object, unsig
       ThrowError(msg.c_str());
       return defaultValue;
     }
-    return val->Uint32Value();
+    return val->Uint32Value(Nan::GetCurrentContext()).FromJust();
   }
   return defaultValue;
 }
 
 bool GetOptionalBoolParam(const char* name, Local<Object>& object, bool defaultValue) {
   auto key = Nan::New(name).ToLocalChecked();
-  if (object->Has(key)) {
-    auto val = object->Get(key);
+  if (object->Has(Nan::GetCurrentContext(), key).FromJust()) {
+    auto val = object->Get(Nan::GetCurrentContext(), key).ToLocalChecked();
     if (!val->IsBoolean()) {
       std::string msg = "Property ";
       msg += name;
@@ -91,7 +91,7 @@ bool GetOptionalBoolParam(const char* name, Local<Object>& object, bool defaultV
       ThrowError(msg.c_str());
       return defaultValue;
     }
-    return val->BooleanValue();
+    return *val;
   }
   return defaultValue;
 }
@@ -119,7 +119,7 @@ NAN_METHOD(Parse) {
     query = info[1];
   }
   else if (info[0]->IsObject()) {
-    auto object = info[1]->ToObject();
+    auto object = info[1]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
     query = GetOptionalStringParam("query", object, query);
     width = GetOptionalUIntParam("width", object, width);
     dumpAst = GetOptionalBoolParam("dumpAst", object, dumpAst);
@@ -131,7 +131,7 @@ NAN_METHOD(Parse) {
     return;
   }
 
-  Utf8String uftStr(query->ToString());
+  Utf8String uftStr(query->ToString(Nan::GetCurrentContext()).ToLocalChecked());
   Callback *callback = new Callback(info[0].As<Function>());
   AsyncQueueWorker(new CypherParserWorker(*uftStr, width, dumpAst, rawJson, colorize, callback));
 }
