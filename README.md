@@ -28,7 +28,7 @@ It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and
 - linux-x64
 - darwin-x64 (OSX >= 10.7)
 
-Sorry Windows users, the libcypher-parser depencency cannot be built on your systems. AIN port is currently in progress. Meanwhile, you can still run a docker container on Windows to use it.
+Sorry Windows users, the libcypher-parser depencency cannot be built on your systems. A port is currently in progress. Meanwhile, you can still run a docker container on Windows to use it.
 
 ## Installation
 ```sh
