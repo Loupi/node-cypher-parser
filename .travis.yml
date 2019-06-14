@@ -139,6 +139,7 @@ before_install:
 install:
 - nvm list
 - node-gyp -v
+- python -V
 - npm install
 - npm rebuild
 - npm run build
