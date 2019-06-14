@@ -27,7 +27,6 @@ matrix:
             - cmake
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=11"
-        - DEPLOYJS=1
     - os: linux
       node_js:
         - "10"
@@ -41,7 +40,6 @@ matrix:
             - cmake
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=10"
-        - DEPLOYJS=1
     - os: linux
       node_js:
         - "9"
