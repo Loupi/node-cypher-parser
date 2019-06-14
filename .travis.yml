@@ -137,7 +137,10 @@ before_install:
   - ./install-dependencies.sh
 
 install:
+- nvm list
+- node-gyp -v
 - npm install
+- npm rebuild
 - npm run build
 - npm test
 
