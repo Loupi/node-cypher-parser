@@ -24,7 +24,7 @@ It relies on [libcypher-parser](https://github.com/cleishm/libcypher-parser) and
 * [API Documentation](https://rawgit.com/Loupi/node-cypher-parser/master/docs/index.html)
 
 ## Supported Systems
-- Node 6.x, 8.x, 9.x, 10.x
+- Node 6, 8, 9, 10, 11, 12
 - linux-x64
 - darwin-x64 (OSX >= 10.7)
 
