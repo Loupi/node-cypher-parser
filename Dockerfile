@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:10
+FROM node:14-alpine
 
 WORKDIR /app
 
@@ -21,4 +21,4 @@ RUN npm install --unsafe-perm --production
 
 COPY . .
 
-CMD ["sleep", "600"]
+ENTRYPOINT ["/app/entrypoint.sh"]

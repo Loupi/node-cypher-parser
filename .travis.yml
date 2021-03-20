@@ -2,6 +2,20 @@ matrix:
   include:
     - os: linux
       node_js:
+        - "14"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=14"
+        - DEPLOYJS=1
+    - os: linux
+      node_js:
         - "12"
       addons:
         apt:
@@ -66,19 +80,12 @@ matrix:
             - cmake
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=8"
-    - os: linux
+    - os: osx
+      osx_image: xcode8
       node_js:
-        - "6"
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-6
-            - g++-6
-            - cmake
+        - "14"
       env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && NODEJS=6"
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=14"
     - os: osx
       osx_image: xcode8
       node_js:
@@ -109,12 +116,6 @@ matrix:
         - "8"
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=8"
-    - os: osx
-      osx_image: xcode8
-      node_js:
-        - "6"
-      env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && NODEJS=6"
 language: node_js
 sudo: required
 before_install:
