@@ -17,7 +17,7 @@ RUN wget https://github.com/cleishm/libcypher-parser/releases/download/v0.6.2/li
 COPY ./package*.json ./binding.gyp /app/
 COPY ./addon /app/addon
 
-RUN npm install --unsafe-perm --production
+RUN npm install --unsafe-perm --production --build-from-source
 
 COPY . .
 
