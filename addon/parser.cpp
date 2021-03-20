@@ -34,7 +34,7 @@ unsigned int NodeBin::LoopErrors(const cypher_parse_result_t* parseResult) const
     binPos.AddMember("column", (int)position.column);
     binPos.AddMember("offset", (int)position.offset);
     bin.AddMember("position", nodeTreePos);
-    bin.AddMember("message", cypher_parse_error_message(node));
+    bin.AddMember("message", std::string(cypher_parse_error_message(node)).c_str());
     bin.AddMember("context", cypher_parse_error_context(node));
     bin.AddMember("contextOffset", (int)cypher_parse_error_context_offset(node));
     nodes.PushBack(nodeTree, allocator);
@@ -45,16 +45,16 @@ unsigned int NodeBin::LoopErrors(const cypher_parse_result_t* parseResult) const
   return nErrors;
 }
 
-void NodeBin::PrintAst(const cypher_parse_result_t* parseResult, unsigned int width,
-                       const struct cypher_parser_colorization *colorization) const {
+void NodeBin::GetAst(const cypher_parse_result_t* parseResult, unsigned int width,
+                       const struct cypher_parser_colorization *colorization, std::string& str) {
   char *buf;
   size_t len;
   FILE *stream = open_memstream(&buf, &len);
   auto error = cypher_parse_result_fprint_ast(parseResult, stream, width, colorization, 0);
-  fclose (stream);
   if (!error) {
-    AddMember("ast", buf);
+    str = std::string(buf);
   }
+  fclose (stream);
   free(buf);
 }
 
@@ -77,6 +77,12 @@ bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, b
     return false;
   }
 
+  auto nErrors = cypher_parse_result_nerrors(parseResult);
+
+  std::string ast;
+  if (!nErrors && dumpAst)
+    GetAst(parseResult, width, colorization, ast);
+
   rapidjson::Document document(rapidjson::kObjectType);
   rapidjson::Value result(rapidjson::kObjectType);
   auto bin = NodeBin((const cypher_astnode_t*)parseResult, result, document.GetAllocator());
@@ -85,10 +91,13 @@ bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, b
   bin.LoopNodes("roots", (node_counter)cypher_parse_result_nroots, (node_getter)cypher_parse_result_get_root);
   bin.LoopNodes("directives", (node_counter)cypher_parse_result_ndirectives, (node_getter)cypher_parse_result_get_directive);
   bin.AddMember("nnodes", (int)cypher_parse_result_nnodes(parseResult));
-  auto nErrors = bin.LoopErrors(parseResult);
+  bin.LoopErrors(parseResult);
+  if (nErrors && dumpAst)
+    GetAst(parseResult, width, colorization, ast);
+
   if (dumpAst)
-    bin.PrintAst(parseResult, width, colorization);
-  
+    bin.AddMember("ast", ast.c_str());
+
   cypher_parse_result_free(parseResult);
   cypher_parser_config_free(config);
 

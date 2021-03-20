@@ -142,8 +142,9 @@ private:
   void Node(const char* name, specific_node_getter getter) const;
   void SwitchWalk(cypher_astnode_type_t nodeType) const;
   unsigned int LoopErrors(const cypher_parse_result_t* parseResult) const;
-  void PrintAst(const cypher_parse_result_t* parseResult, unsigned int width,
-                       const struct cypher_parser_colorization *colorization) const;
+
+  static void GetAst(const cypher_parse_result_t* parseResult, unsigned int width,
+                       const struct cypher_parser_colorization *colorization, std::string& str);
 
   const cypher_astnode_t *node;
   rapidjson::Value& parent;
