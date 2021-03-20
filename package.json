@@ -1,6 +1,6 @@
 {
   "name": "cypher-parser",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A Node addon on top of libcypher-parser, used to parse and lint cypher queries.",
   "os": [
     "darwin",
@@ -70,7 +70,7 @@
     "unsafe-perm": true
   },
   "bundledDependencies": [
-    "node-pre-gyp"
+    "@mapbox/node-pre-gyp"
   ],
   "binary": {
     "module_name": "cypher",
