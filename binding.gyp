@@ -25,6 +25,7 @@
         ['OS=="mac"', {
           'defines': [
             'CUSTOM_MEMSTREAM=1',
+            'CUSTOM_FMEMOPEN=1',
           ],
           'xcode_settings': {
             'ALWAYS_SEARCH_USER_PATHS': 'NO',

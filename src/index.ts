@@ -32,6 +32,7 @@ export interface ParseParameters {
   dumpAst?: boolean;
   rawJson?: boolean;
   colorize?: boolean;
+  parseOnlyStatements?: boolean;
 }
 
 export class CypherParserError extends Error {
@@ -45,7 +46,7 @@ export class CypherParserError extends Error {
 }
 
 export const parse = (query: string | ParseParameters) => new Promise<ParseResult>((resolve, reject) =>
-  cypher.parse(function(succeeded: Boolean, result: ParseResult) {
+  cypher.parse(function(succeeded: boolean, result: ParseResult) {
     if (succeeded) {
       resolve(result);
     } else {

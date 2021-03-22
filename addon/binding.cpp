@@ -7,13 +7,13 @@ using namespace v8;
 
 class CypherParserWorker : public AsyncWorker {
 public:
-  CypherParserWorker(const string& query, unsigned int width, bool dumpAst, bool rawJson, bool colorize, Callback *callback)
-  : AsyncWorker(callback), query(query), width(width), dumpAst(dumpAst), rawJson(rawJson), colorize(colorize) {}
+  CypherParserWorker(const string& query, unsigned int width, bool dumpAst, bool rawJson, bool colorize, bool parseOnlyStatements, Callback *callback)
+  : AsyncWorker(callback), query(query), width(width), dumpAst(dumpAst), rawJson(rawJson), colorize(colorize), parseOnlyStatements(parseOnlyStatements) {}
 
   ~CypherParserWorker() {}
 
   void Execute () {
-    succeeded = NodeBin::Parse(json, query, width, dumpAst, colorize);
+    succeeded = NodeBin::Parse(json, query, width, dumpAst, colorize, parseOnlyStatements);
   }
   
   void HandleOKCallback () {
@@ -44,6 +44,7 @@ private:
   bool dumpAst;
   bool rawJson;
   bool colorize;
+  bool parseOnlyStatements;
   string json;
   bool succeeded;
 };
@@ -104,6 +105,7 @@ NAN_METHOD(Parse) {
   bool dumpAst = false;
   bool rawJson = false;
   bool colorize = false;
+  bool parseOnlyStatements = true;
 
   if (info.Length() < 2) {
     ThrowError("Missing parameters.");
@@ -125,6 +127,7 @@ NAN_METHOD(Parse) {
     dumpAst = GetOptionalBoolParam("dumpAst", object, dumpAst);
     rawJson = GetOptionalBoolParam("rawJson", object, rawJson);
     colorize = GetOptionalBoolParam("colorize", object, colorize);
+    parseOnlyStatements = GetOptionalBoolParam("parseOnlyStatements", object, parseOnlyStatements);
   }
   else {
     ThrowError("Parameter query must be an object or a string.");
@@ -133,7 +136,7 @@ NAN_METHOD(Parse) {
 
   Utf8String uftStr(query->ToString(Nan::GetCurrentContext()).ToLocalChecked());
   Callback *callback = new Callback(info[0].As<Function>());
-  AsyncQueueWorker(new CypherParserWorker(*uftStr, width, dumpAst, rawJson, colorize, callback));
+  AsyncQueueWorker(new CypherParserWorker(*uftStr, width, dumpAst, rawJson, colorize, parseOnlyStatements, callback));
 }
 
 NAN_MODULE_INIT(InitAll) {

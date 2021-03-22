@@ -9,7 +9,7 @@ class NodeBin {
 public:
   NodeBin(const cypher_astnode_t *n, rapidjson::Value& p, rapidjson::Document::AllocatorType& a);
   void WalkNode(int nodeOffset) const;
-  static bool Parse(std::string& json, std::string& query, unsigned int width, bool dumpAst, bool colorize);
+  static bool Parse(std::string& json, std::string& query, unsigned int width, bool dumpAst, bool colorize, bool parseOnlyStatements);
 
 private:
   typedef unsigned int (*node_counter)(const cypher_astnode_t *);
@@ -144,8 +144,8 @@ private:
   unsigned int LoopErrors(const cypher_parse_result_t* parseResult) const;
 
   static void GetAst(const cypher_parse_result_t* parseResult, unsigned int width,
-                       const struct cypher_parser_colorization *colorization, std::string& str);
-
+                       const struct cypher_parser_colorization *colorization, uint_fast32_t flags, std::string& str);
+  
   const cypher_astnode_t *node;
   rapidjson::Value& parent;
   rapidjson::Document::AllocatorType& allocator;

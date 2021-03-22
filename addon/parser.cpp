@@ -4,6 +4,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 #include "memstream/memstream.h"
+#include "fmemopen/fmemopen.h"
 
 const std::string GetJsonText(const rapidjson::Value& doc)
 {
@@ -46,11 +47,12 @@ unsigned int NodeBin::LoopErrors(const cypher_parse_result_t* parseResult) const
 }
 
 void NodeBin::GetAst(const cypher_parse_result_t* parseResult, unsigned int width,
-                       const struct cypher_parser_colorization *colorization, std::string& str) {
+                       const struct cypher_parser_colorization *colorization, uint_fast32_t flags, std::string& str) {
   char *buf;
   size_t len;
   FILE *stream = open_memstream(&buf, &len);
-  auto error = cypher_parse_result_fprint_ast(parseResult, stream, width, colorization, 0);
+  auto error = cypher_parse_result_fprint_ast(parseResult, stream, width, colorization, flags);
+  fflush(stream);
   if (!error) {
     str = std::string(buf);
   }
@@ -58,8 +60,9 @@ void NodeBin::GetAst(const cypher_parse_result_t* parseResult, unsigned int widt
   free(buf);
 }
 
-bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, bool dumpAst, bool colorize) {
+bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, bool dumpAst, bool colorize, bool parseOnlyStatements) {
   auto config = cypher_parser_new_config();
+  uint_fast32_t flags = parseOnlyStatements ? CYPHER_PARSE_ONLY_STATEMENTS : 0;
   if (config == NULL) {
     std::cerr << "cypher_parser_new_config" << std::endl;
     return false; 
@@ -67,22 +70,25 @@ bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, b
 
   auto colorization = cypher_parser_no_colorization;
   if (colorize) {
-      colorization = cypher_parser_ansi_colorization;
-      cypher_parser_config_set_error_colorization(config, colorization);
+    colorization = cypher_parser_ansi_colorization;
+    cypher_parser_config_set_error_colorization(config, colorization);
   }
 
-  auto parseResult = cypher_parse(query.c_str(), NULL, config, CYPHER_PARSE_ONLY_STATEMENTS);
+  FILE *stream = fmemopen((void*)query.c_str(), query.length(), "r");
+  auto parseResult = cypher_fparse(stream, NULL, config, flags);
   if (parseResult == NULL) {
+    fclose(stream);
     std::cerr << "cypher_parse" << std::endl;
     return false;
   }
+  fclose(stream);
 
-  auto nErrors = cypher_parse_result_nerrors(parseResult);
+  auto nErrors = cypher_parse_result_nerrors(parseResult);    
 
   std::string ast;
   if (!nErrors && dumpAst)
-    GetAst(parseResult, width, colorization, ast);
-
+    GetAst(parseResult, width, colorization, flags, ast);
+  
   rapidjson::Document document(rapidjson::kObjectType);
   rapidjson::Value result(rapidjson::kObjectType);
   auto bin = NodeBin((const cypher_astnode_t*)parseResult, result, document.GetAllocator());
@@ -93,11 +99,11 @@ bool NodeBin::Parse(std::string& json, std::string& query, unsigned int width, b
   bin.AddMember("nnodes", (int)cypher_parse_result_nnodes(parseResult));
   bin.LoopErrors(parseResult);
   if (nErrors && dumpAst)
-    GetAst(parseResult, width, colorization, ast);
+    GetAst(parseResult, width, colorization, flags, ast);
 
   if (dumpAst)
     bin.AddMember("ast", ast.c_str());
-
+  
   cypher_parse_result_free(parseResult);
   cypher_parser_config_free(config);
 
