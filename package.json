@@ -1,6 +1,6 @@
 {
   "name": "cypher-parser",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A Node addon on top of libcypher-parser, used to parse and lint cypher queries.",
   "os": [
     "darwin",
