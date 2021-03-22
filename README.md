@@ -51,6 +51,7 @@ export interface ParseParameters {
   dumpAst?: boolean;  // If true, the ParseResult will contain a text description of the AST tree. Default false.
   rawJson?: boolean;  // If true, the result will be a json string instead of a ParseResult object. Default false.
   colorize?: boolean; // If true, the text AST output and error descriptions will be ANSI colored. Nice for console output.
+  parseOnlyStatements?: boolean; // If true, client commands will not be parsed. Default true.
 }
 ```  
 
