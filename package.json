@@ -1,6 +1,6 @@
 {
   "name": "cypher-parser",
-  "version": "0.1.5",
+  "version": "0.1.11",
   "description": "A Node addon on top of libcypher-parser, used to parse and lint cypher queries.",
   "os": [
     "darwin",
@@ -51,9 +51,9 @@
     "nan": "^2.14.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.3",
-    "@types/mocha": "^5.2.1",
-    "@types/node": "^10.3.3",
+    "@types/chai": "^4.2.15",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.17.55",
     "aws-sdk": "^2.868.0",
     "chai": "^4.3.4",
     "codecov": "^3.8.1",
@@ -64,13 +64,13 @@
     "ts-node": "^6.2.0",
     "tslint": "^5.20.1",
     "typedoc": "^0.20.32",
-    "typescript": "^2.9.2"
+    "typescript": "^4.2.3"
   },
   "config": {
     "unsafe-perm": true
   },
   "bundledDependencies": [
-    "node-pre-gyp"
+    "@mapbox/node-pre-gyp"
   ],
   "binary": {
     "module_name": "cypher",

@@ -5,7 +5,8 @@
       "sources": [
         "addon/binding.cpp",
         "addon/parser.cpp",
-        "addon/memstream/memstream.c"
+        "addon/memstream/memstream.c",
+        "addon/fmemopen/fmemopen.c"
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")", 

@@ -35,7 +35,7 @@ unsigned int NodeBin::LoopErrors(const cypher_parse_result_t* parseResult) const
     binPos.AddMember("column", (int)position.column);
     binPos.AddMember("offset", (int)position.offset);
     bin.AddMember("position", nodeTreePos);
-    bin.AddMember("message", cypher_parse_error_message(node));
+    bin.AddMember("message", std::string(cypher_parse_error_message(node)).c_str());
     bin.AddMember("context", cypher_parse_error_context(node));
     bin.AddMember("contextOffset", (int)cypher_parse_error_context_offset(node));
     nodes.PushBack(nodeTree, allocator);
@@ -67,6 +67,7 @@ void NodeBin::GetAst(const cypher_parse_result_t* parseResult, unsigned int widt
 #endif
     str = std::string(buf);
   }
+  fclose (stream);
   free(buf);
 }
 
