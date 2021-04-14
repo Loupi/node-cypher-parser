@@ -28,13 +28,13 @@ export interface Statement extends AstNode {
 export interface StatementOption extends AstNode {}
 
 export interface CypherOption extends StatementOption {
-  version: String;
+  version: string;
   params: CypherOptionParam[];
 }
 
 export interface CypherOptionParam extends AstNode {
-  name: String;
-  value: String;
+  name: string;
+  value: string;
 }
 
 export interface ExplainOption extends StatementOption {}
@@ -92,7 +92,7 @@ export interface LoadCsv extends QueryClause {
   withHeaders: boolean;
   url: Expression;
   identifier: Identifier;
-  fieldTerminator: String;
+  fieldTerminator: string;
 }
 
 export interface Start extends QueryClause {
@@ -106,13 +106,13 @@ export interface NodeIndexLookup extends StartPoint {
   identifier: Identifier;
   indexName: IndexName;
   propName: PropName;
-  lookup: String|Parameter;
+  lookup: string|Parameter;
 }
 
 export interface NodeIndexQuery extends StartPoint {
   identifier: Identifier;
   indexName: IndexName;
-  query: String|Parameter;
+  query: string|Parameter;
 }
 
 export interface NodeIdLookup extends StartPoint {
@@ -127,7 +127,7 @@ export interface AllNodesScan extends StartPoint {
 export interface RelIndexQuery extends StartPoint {
   identifier: Identifier;
   indexName: IndexName;
-  query: String|Parameter;
+  query: string|Parameter;
 }
 
 export interface RelIdLookup extends StartPoint {
@@ -509,7 +509,7 @@ export interface Range extends AstNode {
 
 export interface Command extends AstNode {
   name: string;
-  args: String[];
+  args: string[];
 }
 
 export interface Comment extends AstNode {

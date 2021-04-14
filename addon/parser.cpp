@@ -48,13 +48,24 @@ unsigned int NodeBin::LoopErrors(const cypher_parse_result_t* parseResult) const
 
 void NodeBin::GetAst(const cypher_parse_result_t* parseResult, unsigned int width,
                        const struct cypher_parser_colorization *colorization, uint_fast32_t flags, std::string& str) {
-  char *buf;
+  char *buf = NULL;
   size_t len;
+#ifdef TMPFILE_AST
+  FILE *stream = tmpfile();
+#else
   FILE *stream = open_memstream(&buf, &len);
+#endif
   auto error = cypher_parse_result_fprint_ast(parseResult, stream, width, colorization, flags);
   fflush(stream);
   if (!error) {
-    AddMember("ast", buf);
+#ifdef TMPFILE_AST
+    fseek(stream, 0, SEEK_END);
+    len = ftell(stream);
+    rewind(stream);
+    buf = calloc(len + 1, sizeof(char));
+    fread(buf, 1, len, stream);
+#endif
+    str = std::string(buf);
   }
   free(buf);
 }
