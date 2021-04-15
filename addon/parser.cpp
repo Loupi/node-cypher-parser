@@ -62,7 +62,7 @@ void NodeBin::GetAst(const cypher_parse_result_t* parseResult, unsigned int widt
     fseek(stream, 0, SEEK_END);
     len = ftell(stream);
     rewind(stream);
-    buf = calloc(len + 1, sizeof(char));
+    buf = (char*)calloc(len + 1, sizeof(char));
     fread(buf, 1, len, stream);
 #endif
     str = std::string(buf);
