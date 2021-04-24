@@ -68,7 +68,7 @@ void ReadStream(FILE *stream, char** bufAddress, size_t* lenAddress) {
 FILE* FMemOpen(std::string& str) {
 #ifdef TMPFILE_AST
   FILE *stream = tmpfile();
-  fputs(str, stream);
+  fputs(str.c_str(), stream);
   fflush(stream);
   rewind(stream);
 #else
