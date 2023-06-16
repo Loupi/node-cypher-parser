@@ -143,4 +143,6 @@ NAN_MODULE_INIT(InitAll) {
   Export(target, "parse", Parse);
 }
 
-NODE_MODULE(Cypher, InitAll)
+NODE_MODULE_INIT() {
+  InitAll(exports)
+}
