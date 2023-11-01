@@ -1,0 +1,87 @@
+name: Node.js CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node-version: ["14", "12", "11", "10", "9", "8"]
+        include:
+          - os: ubuntu-latest
+            gcc-version: "6"
+            brew-install: ""
+          - os: macos-latest
+            gcc-version: "7"
+            brew-install: "brew install gcc"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++-${{ matrix.gcc-version }} gcc-${{ matrix.gcc-version }} cmake
+          echo "CC=gcc-${{ matrix.gcc-version }}" >> $GITHUB_ENV
+          echo "CXX=g++-${{ matrix.gcc-version }}" >> $GITHUB_ENV
+
+      - name: Install dependencies (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          ${{ matrix.brew-install }} 
+          echo "CC=gcc-${{ matrix.gcc-version }}" >> $GITHUB_ENV
+          echo "CXX=g++-${{ matrix.gcc-version }}" >> $GITHUB_ENV
+
+      - name: Install node-gyp globally
+        run: npm install node-gyp -g
+
+      - name: Install and build
+        run: |
+          chmod +x ./install-dependencies.sh
+          ./install-dependencies.sh
+          npm install
+          npm rebuild
+          npm run build
+          npm test
+
+      - name: Publish binary
+        if: startsWith(github.ref, 'refs/tags/') && matrix.node-version == '14' && matrix.os == 'ubuntu-latest'
+        run: |
+          npm install -g node-pre-gyp
+          node-pre-gyp package publish
+          node-pre-gyp clean
+          node-gyp clean
+
+      - name: Test binary installation
+        if: startsWith(github.ref, 'refs/tags/') && matrix.node-version == '14' && matrix.os == 'ubuntu-latest'
+        run: |
+          INSTALL_RESULT=$(npm install --fallback-to-build=false > /dev/null)$? || true;
+          if [[ $INSTALL_RESULT != 0 ]]; then
+            echo "returned $INSTALL_RESULT";
+            node-pre-gyp unpublish;
+            exit 1;
+          fi
+          node-pre-gyp clean
+
+      - name: After success
+        if: success() && matrix.node-version == '14' && matrix.os == 'ubuntu-latest'
+        run: |
+          npm install -g codecov node-pre-gyp
+          node-pre-gyp info
+          codecov
+
+    #   - name: Deploy to NPM
+    #     if: startsWith(github.ref, 'refs/tags/') && matrix.node-version == '14' && matrix.os == 'ubuntu-latest'
+    #     uses: JS-DevTools/npm-publish@v1
+    #     with:
+    #       token: ${{ secrets.NPM_TOKEN }}
