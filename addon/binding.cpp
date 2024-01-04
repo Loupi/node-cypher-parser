@@ -144,5 +144,5 @@ NAN_MODULE_INIT(InitAll) {
 }
 
 NODE_MODULE_INIT() {
-  InitAll(exports)
+  InitAll(exports);
 }
